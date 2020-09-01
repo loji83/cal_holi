@@ -2,13 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.cal_holi.demo.DetailMapper">
+<mapper namespace="com.ksmartech.holiday.DetailMapper">
 
-    <select id="getInfo" resultType="com.cal_holi.demo.model.DetailHolidayDto">
+    <select id="getInfo" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
         SELECT *
         FROM detail_holi
         WHERE emp_no = #{empNo}
     </select>
 
+    <select id="getEmpInfo" resultType="com.ksmartech.holiday.model.HolidayDto">
+        SELECT *
+        FROM holi
+        WHERE emp_no = #{empNo}
+    </select>
 
 </mapper>

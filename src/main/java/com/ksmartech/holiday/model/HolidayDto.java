@@ -1,9 +1,5 @@
-package com.cal_holi.demo.model;
+package com.ksmartech.holiday.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HolidayDto {
 

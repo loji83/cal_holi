@@ -1,8 +1,9 @@
-package com.cal_holi.demo.service;
+package com.ksmartech.holiday.service;
 
 
-import com.cal_holi.demo.DetailMapper;
-import com.cal_holi.demo.model.DetailHolidayDto;
+import com.ksmartech.holiday.DetailMapper;
+import com.ksmartech.holiday.model.DetailHolidayDto;
+import com.ksmartech.holiday.model.HolidayDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,6 @@ import java.util.List;
 @Service
 public class DetailHolidayService {
 
-    //스프링이 제공하는, new 사용x
     @Autowired
     DetailMapper detailMapper;
 
@@ -20,6 +20,14 @@ public class DetailHolidayService {
         return result;
     }
 
+    public HolidayDto getEmpInfo(String empNo){
+        HolidayDto result2 = detailMapper.getEmpInfo(empNo);
+        return result2;
+    }
+
 }
+
+
+
 
 

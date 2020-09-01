@@ -1,4 +1,4 @@
-package com.cal_holi.demo;
+package com.ksmartech.holiday;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

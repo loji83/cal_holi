@@ -1,4 +1,4 @@
-package com.cal_holi.demo.model;
+package com.ksmartech.holiday.model;
 
 public class DetailHolidayDto {
     private String startDate;

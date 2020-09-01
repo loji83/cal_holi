@@ -1,7 +1,8 @@
-package com.cal_holi.demo.controller;
+package com.ksmartech.holiday.controller;
 
-import com.cal_holi.demo.service.DetailHolidayService;
-import com.cal_holi.demo.model.DetailHolidayDto;
+import com.ksmartech.holiday.model.HolidayDto;
+import com.ksmartech.holiday.service.DetailHolidayService;
+import com.ksmartech.holiday.model.DetailHolidayDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 @Controller
-public class MainController {
+public class DetailHolidayController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,5 +29,17 @@ public class MainController {
 
         return result;
     }
+
+
+    @GetMapping(value = "/holidayInfo/{empNo}")
+    @ResponseBody
+    public HolidayDto HolidayInfo(@PathVariable String empNo) {
+        logger.debug(empNo);
+
+        HolidayDto result = detailHolidayService.getEmpInfo(empNo);
+
+        return result;
+    }
+
 
 }
