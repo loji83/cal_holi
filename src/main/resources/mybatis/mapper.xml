@@ -1,0 +1,14 @@
+<?xml version= "1.0" encoding ="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cal_holi.demo.EmpMapper">
+
+    <select id="getInfo" resultType="com.cal_holi.demo.GetEmpInfoDto">
+        SELECT *
+        FROM employee
+        WHERE emp_no = '1'
+    </select>
+
+
+</mapper>
