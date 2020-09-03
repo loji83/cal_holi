@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DetailHolidayService {
+public class MainService {
 
     @Autowired
     MainMapper mainMapper;

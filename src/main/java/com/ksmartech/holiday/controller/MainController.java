@@ -1,7 +1,7 @@
 package com.ksmartech.holiday.controller;
 
 import com.ksmartech.holiday.model.HolidayDto;
-import com.ksmartech.holiday.service.DetailHolidayService;
+import com.ksmartech.holiday.service.MainService;
 import com.ksmartech.holiday.model.DetailHolidayDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +18,14 @@ public class MainController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    DetailHolidayService detailHolidayService;
+    MainService mainService;
 
     @GetMapping(value = "/detailHolidayInfo/{empNo}")
     @ResponseBody
     public List<DetailHolidayDto> detailHolidayInfo(@PathVariable String empNo){
         logger.debug(empNo);
 
-        List<DetailHolidayDto> result= (List<DetailHolidayDto>)detailHolidayService.empInfo(empNo);
+        List<DetailHolidayDto> result= (List<DetailHolidayDto>) mainService.empInfo(empNo);
 
         return result;
     }
@@ -36,7 +36,7 @@ public class MainController {
     public HolidayDto HolidayInfo(@PathVariable String empNo) {
         logger.debug(empNo);
 
-        HolidayDto result = detailHolidayService.getEmpInfo(empNo);
+        HolidayDto result = mainService.getEmpInfo(empNo);
 
         return result;
     }
