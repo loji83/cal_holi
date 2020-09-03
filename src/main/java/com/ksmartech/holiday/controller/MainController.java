@@ -20,7 +20,7 @@ public class MainController {
     @Autowired
     MainService mainService;
 
-    @GetMapping(value = "/detailHolidayInfo/{empNo}")
+    @GetMapping(value = "/holiday/detail-info/{empNo}")
     @ResponseBody
     public List<DetailHolidayDto> detailHolidayInfo(@PathVariable String empNo){
         logger.debug(empNo);
@@ -31,7 +31,7 @@ public class MainController {
     }
 
 
-    @GetMapping(value = "/holidayInfo/{empNo}")
+    @GetMapping(value = "/holiday/holi-info/{empNo}")
     @ResponseBody
     public HolidayDto HolidayInfo(@PathVariable String empNo) {
         logger.debug(empNo);
