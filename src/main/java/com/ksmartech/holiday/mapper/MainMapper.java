@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface DetailMapper {
+public interface MainMapper {
 
     List<DetailHolidayDto> getInfo(String empNo);
 

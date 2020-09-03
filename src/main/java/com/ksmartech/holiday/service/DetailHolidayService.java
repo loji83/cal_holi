@@ -1,7 +1,7 @@
 package com.ksmartech.holiday.service;
 
 
-import com.ksmartech.holiday.mapper.DetailMapper;
+import com.ksmartech.holiday.mapper.MainMapper;
 import com.ksmartech.holiday.model.DetailHolidayDto;
 import com.ksmartech.holiday.model.HolidayDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,15 @@ import java.util.List;
 public class DetailHolidayService {
 
     @Autowired
-    DetailMapper detailMapper;
+    MainMapper mainMapper;
 
     public List<DetailHolidayDto> empInfo(String empNo){
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) detailMapper.getInfo(empNo);
+        List<DetailHolidayDto> result = (List<DetailHolidayDto>) mainMapper.getInfo(empNo);
         return result;
     }
 
     public HolidayDto getEmpInfo(String empNo){
-        HolidayDto result2 = detailMapper.getEmpInfo(empNo);
+        HolidayDto result2 = mainMapper.getEmpInfo(empNo);
         return result2;
     }
 

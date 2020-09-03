@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.ksmartech.holiday.mapper.DetailMapper">
+<mapper namespace="com.ksmartech.holiday.mapper.MainMapper">
 
     <select id="getInfo" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
         SELECT *

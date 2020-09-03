@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @Controller
-public class DetailHolidayController {
+public class MainController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
