@@ -1,7 +1,7 @@
 package com.ksmartech.holiday.service;
 
 
-import com.ksmartech.holiday.DetailMapper;
+import com.ksmartech.holiday.mapper.DetailMapper;
 import com.ksmartech.holiday.model.DetailHolidayDto;
 import com.ksmartech.holiday.model.HolidayDto;
 import org.springframework.beans.factory.annotation.Autowired;

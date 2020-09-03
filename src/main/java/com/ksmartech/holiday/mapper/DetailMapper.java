@@ -1,4 +1,4 @@
-package com.ksmartech.holiday;
+package com.ksmartech.holiday.mapper;
 
 import com.ksmartech.holiday.model.DetailHolidayDto;
 import com.ksmartech.holiday.model.HolidayDto;
