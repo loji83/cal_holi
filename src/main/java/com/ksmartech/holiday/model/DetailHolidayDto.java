@@ -1,5 +1,6 @@
 package com.ksmartech.holiday.model;
 
+// 휴가 세부내용 조회를 위한 모델
 public class DetailHolidayDto {
     private String startDate;
     private String endDate;

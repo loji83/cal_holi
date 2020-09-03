@@ -1,6 +1,6 @@
 package com.ksmartech.holiday.model;
 
-
+// 휴가 조회를 위한 모델
 public class HolidayDto {
 
     private String totalDays;
