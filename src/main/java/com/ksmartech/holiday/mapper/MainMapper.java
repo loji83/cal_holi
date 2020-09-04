@@ -1,6 +1,7 @@
 package com.ksmartech.holiday.mapper;
 
 import com.ksmartech.holiday.model.DetailHolidayDto;
+import com.ksmartech.holiday.model.EmpDto;
 import com.ksmartech.holiday.model.HolidayDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -14,7 +15,7 @@ public interface MainMapper {
 
     HolidayDto getEmpInfo(String empNo);
 
-
+    EmpDto showEmpInfo(String empNo);
 }
 
 

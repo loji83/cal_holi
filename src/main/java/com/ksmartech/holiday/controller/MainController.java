@@ -1,5 +1,6 @@
 package com.ksmartech.holiday.controller;
 
+import com.ksmartech.holiday.model.EmpDto;
 import com.ksmartech.holiday.model.HolidayDto;
 import com.ksmartech.holiday.service.MainService;
 import com.ksmartech.holiday.model.DetailHolidayDto;
@@ -37,6 +38,16 @@ public class MainController {
         logger.debug(empNo);
 
         HolidayDto result = mainService.getEmpInfo(empNo);
+
+        return result;
+    }
+
+    @GetMapping(value = "/employee/{empNo}")
+    @ResponseBody
+    public EmpDto EmpInfo(@PathVariable String empNo){
+        logger.debug(empNo);
+
+        EmpDto result = mainService.showEmpInfo(empNo);
 
         return result;
     }
