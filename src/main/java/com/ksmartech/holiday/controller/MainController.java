@@ -26,7 +26,7 @@ public class MainController {
     public List<DetailHolidayDto> detailHolidayInfo(@PathVariable String empNo){
         logger.debug(empNo);
 
-        List<DetailHolidayDto> result= (List<DetailHolidayDto>) mainService.empInfo(empNo);
+        List<DetailHolidayDto> result = (List<DetailHolidayDto>) mainService.empInfo(empNo);
 
         return result;
     }
