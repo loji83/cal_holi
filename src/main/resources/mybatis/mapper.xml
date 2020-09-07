@@ -21,4 +21,11 @@
         FROM employee
         WHERE emp_no = #{empNo}
     </select>
+
+    <update id="resignEmp">
+        UPDATE employee
+        SET state = '퇴사'
+        WHERE emp_no = #{empNo}
+    </update>
 </mapper>
+

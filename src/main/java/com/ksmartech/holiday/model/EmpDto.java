@@ -8,6 +8,7 @@ public class EmpDto {
     private String position;
     private String team;
     private String rank;
+    private String state;
 
 
     public String getJoin_date() {
@@ -58,15 +59,24 @@ public class EmpDto {
         this.rank = rank;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "EmpDto{" +
-                "join_date='" + join_date + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", join_date='" + join_date + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", position='" + position + '\'' +
                 ", team='" + team + '\'' +
                 ", rank='" + rank + '\'' +
+                ", state='" + state + '\'' +
                 '}';
     }
 }

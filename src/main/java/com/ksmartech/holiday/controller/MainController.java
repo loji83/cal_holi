@@ -1,15 +1,14 @@
 package com.ksmartech.holiday.controller;
 
-import com.ksmartech.holiday.model.EmpDto;
-import com.ksmartech.holiday.model.HolidayDto;
+import com.ksmartech.holiday.model.*;
 import com.ksmartech.holiday.service.MainService;
-import com.ksmartech.holiday.model.DetailHolidayDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,5 +51,14 @@ public class MainController {
         return result;
     }
 
+    @PutMapping(value = "/employee/{empNo}")
+    @ResponseBody
+    public ResponseModel ResignEmp(@PathVariable String empNo){
+        logger.debug(empNo);
+
+        ResponseModel result = mainService.resignEmp(empNo);
+
+        return result;
+    }
 
 }
