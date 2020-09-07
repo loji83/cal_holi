@@ -13,13 +13,14 @@ import java.util.List;
 
 
 @Controller
-public class MainController {
+public class EmployeeController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     MainService mainService;
 
+    /*
     @GetMapping(value = "/holiday/detail-info/{empNo}")
     @ResponseBody
     public List<DetailHolidayDto> detailHolidayInfo(@PathVariable String empNo){
@@ -41,6 +42,8 @@ public class MainController {
         return result;
     }
 
+
+     */
     @GetMapping(value = "/employee/{empNo}")
     @ResponseBody
     public EmpDto EmpInfo(@PathVariable String empNo){
@@ -61,4 +64,11 @@ public class MainController {
         return result;
     }
 
+    @PostMapping(value = "/employee")
+    @ResponseBody
+    public ResponseModel NewEmp(@RequestBody EmpDto empDto){
+        ResponseModel result = mainService.newEmp(empDto);
+
+        return result;
+    }
 }

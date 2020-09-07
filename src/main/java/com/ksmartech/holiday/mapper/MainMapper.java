@@ -15,6 +15,8 @@ public interface MainMapper {
 
     EmpDto showEmpInfo(String empNo);
 
+    int newEmp(EmpDto empDto);
+
     int resignEmp(String empNo);
 }
 

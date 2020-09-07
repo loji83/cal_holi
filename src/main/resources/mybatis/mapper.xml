@@ -27,5 +27,10 @@
         SET state = '퇴사'
         WHERE emp_no = #{empNo}
     </update>
+
+    <insert id="newEmp">
+        INSERT INTO employee (join_date, name, birthday, position, team, rank, state)
+        VALUES(#{joinDate}, #{name}, #{birthday}, #{position},#{team}, #{rank}, #{state})
+    </insert>
 </mapper>
 

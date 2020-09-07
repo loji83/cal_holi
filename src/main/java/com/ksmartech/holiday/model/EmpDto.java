@@ -2,7 +2,7 @@ package com.ksmartech.holiday.model;
 
 //사원 정보 조회를 위한 모델
 public class EmpDto {
-    private String join_date;
+    private String joinDate;
     private String name;
     private String birthday;
     private String position;
@@ -10,13 +10,25 @@ public class EmpDto {
     private String rank;
     private String state;
 
-
-    public String getJoin_date() {
-        return join_date;
+    @Override
+    public String toString() {
+        return "EmpDto{" +
+                "joinDate='" + joinDate + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", position='" + position + '\'' +
+                ", team='" + team + '\'' +
+                ", rank='" + rank + '\'' +
+                ", state='" + state + '\'' +
+                '}';
     }
 
-    public void setJoin_date(String join_date) {
-        this.join_date = join_date;
+    public String getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate;
     }
 
     public String getName() {
@@ -67,16 +79,4 @@ public class EmpDto {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "EmpDto{" +
-                "name='" + name + '\'' +
-                ", join_date='" + join_date + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", position='" + position + '\'' +
-                ", team='" + team + '\'' +
-                ", rank='" + rank + '\'' +
-                ", state='" + state + '\'' +
-                '}';
-    }
 }

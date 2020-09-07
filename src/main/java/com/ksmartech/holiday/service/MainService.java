@@ -33,7 +33,23 @@ public class MainService {
         return result;
     }
 
+    public ResponseModel newEmp(EmpDto empDto){
+        int result = mainMapper.newEmp(empDto);
 
+        ResponseModel responseModel = new ResponseModel();
+
+        if(result == 1) {
+            responseModel.setCode("0000");
+            responseModel.setMessage("Success");
+        } else {
+            responseModel.setCode("0001");
+            responseModel.setMessage("No emp");
+        }
+
+        logger.debug(responseModel.toString());
+
+        return responseModel;
+    }
 
     public ResponseModel resignEmp (String empNo){
 
@@ -48,7 +64,6 @@ public class MainService {
            responseModel.setCode("0001");
            responseModel.setMessage("No emp");
        }
-
 
         logger.debug(responseModel.toString());
 
