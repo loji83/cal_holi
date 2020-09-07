@@ -4,6 +4,7 @@ package com.ksmartech.holiday.model;
 public class EmpDto {
     private String join_date;
     private String name;
+    private String birthday;
     private String position;
     private String team;
     private String rank;
@@ -23,6 +24,14 @@ public class EmpDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getPosition() {
@@ -54,6 +63,7 @@ public class EmpDto {
         return "EmpDto{" +
                 "join_date='" + join_date + '\'' +
                 ", name='" + name + '\'' +
+                ", birthday='" + birthday + '\'' +
                 ", position='" + position + '\'' +
                 ", team='" + team + '\'' +
                 ", rank='" + rank + '\'' +
