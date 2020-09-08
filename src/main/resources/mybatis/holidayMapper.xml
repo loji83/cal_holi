@@ -34,5 +34,9 @@
         WHERE holi_no = #{holiNo}
     </update>
 
+    <delete id="cancelHoli" parameterType="com.ksmartech.holiday.model.HoliParamDto">
+        DELETE FROM detail_holi
+        WHERE holi_no = #{holiNo} AND emp_no = #{empNo}
+    </delete>
 </mapper>
 

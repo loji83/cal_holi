@@ -76,4 +76,24 @@ public class HolidayService {
 
         return responseModel;
     }
+
+    //취소 기능
+    public ResponseModel cancelHoli(HoliParamDto holiParamDto){
+        int result = holidayMapper.cancelHoli(holiParamDto);
+
+        ResponseModel responseModel = new ResponseModel();
+
+        if(result == 1) {
+            responseModel.setCode("0000");
+            responseModel.setMessage("Success");
+        } else {
+            responseModel.setCode("0001");
+            responseModel.setMessage("No emp");
+        }
+
+        logger.debug(responseModel.toString());
+
+        return responseModel;
+    }
+
 }

@@ -18,6 +18,7 @@ public interface HolidayMapper {
 
     int approvalHoli(HoliParamDto holiParamDto);
 
+    int cancelHoli(HoliParamDto holiParamDto);
 
 }
 

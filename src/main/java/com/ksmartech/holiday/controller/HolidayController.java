@@ -73,5 +73,12 @@ public class HolidayController {
         return result;
     }
 
+    // 휴가 신청 취소 기능
+    @DeleteMapping(value = "/holiday")
+    @ResponseBody
+    public ResponseModel CancelHoli(@RequestBody HoliParamDto holiParamDto){
+        ResponseModel result = holidayService.cancelHoli(holiParamDto);
+        return result;
+    }
 
 }
