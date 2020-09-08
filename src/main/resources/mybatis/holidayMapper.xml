@@ -20,5 +20,25 @@
         INSERT INTO detail_holi (emp_no, startDate, endDate, holiType)
         VALUES(#{empNo}, #{startDate}, #{endDate}, #{holiType})
     </insert>
+
+    <select id="checkApproval" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
+        SELECT *
+        FROM employee e, detail_holi d
+        WHERE e.emp_no = d.emp_no AND e.rank = '팀장' AND d.emp_no = #{empNo} AND e.team = #{team}
+    </select>
+
+    <update id="rejectHoli">
+        UPDATE detail_holi
+        SET state = '반려'
+        WHERE emp_no = #{empNo}
+    </update>
+
+    <update id="approvalHoli">
+        UPDATE detail_holi d
+        JOIN employee e ON e.emp_no = d.emp_no
+        SET d.state = '승인'
+        WHERE d.emp_no = #{empNo} AND e.rank = '팀장'
+    </update>
+
 </mapper>
 

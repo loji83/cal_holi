@@ -1,9 +1,6 @@
 package com.ksmartech.holiday.mapper;
 
-import com.ksmartech.holiday.model.ApplyHoliDto;
-import com.ksmartech.holiday.model.DetailHolidayDto;
-import com.ksmartech.holiday.model.EmpDto;
-import com.ksmartech.holiday.model.HolidayDto;
+import com.ksmartech.holiday.model.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,6 +13,13 @@ public interface HolidayMapper {
     HolidayDto getEmpInfo(String empNo);
 
     int applyEmp(ApplyHoliDto applyHoliDto);
+
+    List<DetailHolidayDto> checkApproval(String team, String empNo);
+
+    int rejectHoli(String holiNo, String empNo);
+
+    int approvalHoli(String holiNo, String empNo);
+
 
 }
 

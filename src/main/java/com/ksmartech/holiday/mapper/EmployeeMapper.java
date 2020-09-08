@@ -12,6 +12,7 @@ public interface EmployeeMapper {
     int newEmp(EmpDto empDto);
 
     int resignEmp(String empNo);
+
 }
 
 

@@ -48,4 +48,48 @@ public class HolidayService {
 
         return responseModel;
     }
+
+    // 결재 조회
+    public List<DetailHolidayDto> checkApproval(String team, String empNo){
+        List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayMapper.checkApproval(team, empNo);
+        return result;
+    }
+
+    // 반려 기능
+    public ResponseModel rejectHoli(String holiNo, String empNo){
+        int result = holidayMapper.rejectHoli(holiNo, empNo);
+
+        ResponseModel responseModel = new ResponseModel();
+
+        if(result == 1) {
+            responseModel.setCode("0000");
+            responseModel.setMessage("Success");
+        } else {
+            responseModel.setCode("0001");
+            responseModel.setMessage("No emp");
+        }
+
+        logger.debug(responseModel.toString());
+
+        return responseModel;
+    }
+
+    // 반려 기능
+    public ResponseModel approvalHoli(String holiNo, String empNo){
+        int result = holidayMapper.approvalHoli(holiNo, empNo);
+
+        ResponseModel responseModel = new ResponseModel();
+
+        if(result == 1) {
+            responseModel.setCode("0000");
+            responseModel.setMessage("Success");
+        } else {
+            responseModel.setCode("0001");
+            responseModel.setMessage("No emp");
+        }
+
+        logger.debug(responseModel.toString());
+
+        return responseModel;
+    }
 }
