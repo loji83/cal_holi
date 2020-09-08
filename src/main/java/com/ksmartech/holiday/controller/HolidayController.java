@@ -1,9 +1,6 @@
 package com.ksmartech.holiday.controller;
 
-import com.ksmartech.holiday.model.DetailHolidayDto;
-import com.ksmartech.holiday.model.EmpDto;
-import com.ksmartech.holiday.model.HolidayDto;
-import com.ksmartech.holiday.model.ResponseModel;
+import com.ksmartech.holiday.model.*;
 import com.ksmartech.holiday.service.HolidayService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,5 +41,13 @@ public class HolidayController {
         return result;
     }
 
+    // 휴가 신청 기능
+    @PostMapping(value = "/holiday")
+    @ResponseBody
+    public ResponseModel ApplyHoli(@RequestBody ApplyHoliDto applyHoliDto){
 
+        ResponseModel result = holidayService.applyEmp(applyHoliDto);
+
+        return result;
+    }
 }

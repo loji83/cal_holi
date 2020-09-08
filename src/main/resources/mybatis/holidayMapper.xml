@@ -16,5 +16,9 @@
         WHERE emp_no = #{empNo}
     </select>
 
+    <insert id="applyEmp">
+        INSERT INTO detail_holi (emp_no, startDate, endDate, holiType)
+        VALUES(#{empNo}, #{startDate}, #{endDate}, #{holiType})
+    </insert>
 </mapper>
 
