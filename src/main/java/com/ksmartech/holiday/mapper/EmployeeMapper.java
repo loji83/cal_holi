@@ -13,6 +13,8 @@ public interface EmployeeMapper {
 
     int resignEmp(String empNo);
 
+    String isLeader(String empNo);
+
 }
 
 

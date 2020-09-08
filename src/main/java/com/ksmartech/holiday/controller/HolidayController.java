@@ -54,10 +54,10 @@ public class HolidayController {
     // 결재 조회 기능
     @GetMapping(value = "/team/holiday/{team}/{empNo}")
     @ResponseBody
-    public List<DetailHolidayDto> CheckApproval(@PathVariable String team, @PathVariable String empNo){
+    public ResponseModel CheckApproval(@PathVariable String team, @PathVariable String empNo){
         logger.debug(empNo);
 
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayService.checkApproval(team, empNo);
+        ResponseModel result = holidayService.checkApproval(team, empNo);
 
         return result;
     }

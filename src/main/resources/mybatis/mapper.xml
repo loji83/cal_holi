@@ -21,5 +21,11 @@
         VALUES(#{joinDate}, #{name}, #{birthday}, #{position},#{team}, #{rank}, #{state})
     </insert>
 
+    <select id="isLeader" resultType="string">
+        SELECT rank
+        FROM employee
+        WHERE emp_no = #{empNo}
+    </select>
+
 </mapper>
 
