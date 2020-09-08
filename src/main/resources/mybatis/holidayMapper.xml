@@ -27,17 +27,11 @@
         WHERE e.emp_no = d.emp_no AND e.rank = '팀장' AND d.emp_no = #{empNo} AND e.team = #{team}
     </select>
 
-    <update id="rejectHoli">
-        UPDATE detail_holi
-        SET state = '반려'
-        WHERE emp_no = #{empNo}
-    </update>
 
-    <update id="approvalHoli">
-        UPDATE detail_holi d
-        JOIN employee e ON e.emp_no = d.emp_no
-        SET d.state = '승인'
-        WHERE d.emp_no = #{empNo} AND e.rank = '팀장'
+    <update id="approvalHoli" parameterType="com.ksmartech.holiday.model.HoliParamDto">
+        UPDATE detail_holi
+        SET state = #{state}
+        WHERE holi_no = #{holiNo}
     </update>
 
 </mapper>

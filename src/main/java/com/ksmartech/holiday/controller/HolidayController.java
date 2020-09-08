@@ -46,7 +46,7 @@ public class HolidayController {
     @ResponseBody
     public ResponseModel ApplyHoli(@RequestBody ApplyHoliDto applyHoliDto){
 
-        ResponseModel result = holidayService.applyEmp(applyHoliDto);
+        ResponseModel result = holidayService.applyHoli(applyHoliDto);
 
         return result;
     }
@@ -62,25 +62,16 @@ public class HolidayController {
         return result;
     }
 
-    // 반려 기능
-    @PutMapping(value = "/team/holiday/reject/{holiNo}/{empNo}")
-    @ResponseBody
-    public ResponseModel RejectHoli(@PathVariable String holiNo, @PathVariable String empNo){
-        logger.debug(empNo);
 
-        ResponseModel result = holidayService.rejectHoli(holiNo, empNo);
+    // 승인 및 반려 기능
+    @PutMapping(value = "/team/holiday")
+    @ResponseBody
+    public ResponseModel ApprovalHoli(@RequestBody HoliParamDto holiParamDto){
+
+        ResponseModel result = holidayService.approvalHoli(holiParamDto);
 
         return result;
     }
 
-    // 승인 기능
-    @PutMapping(value = "/team/holiday/approval/{holiNo}/{empNo}")
-    @ResponseBody
-    public ResponseModel ApprovalHoli(@PathVariable String holiNo, @PathVariable String empNo){
-        logger.debug(empNo);
 
-        ResponseModel result = holidayService.approvalHoli(holiNo, empNo);
-
-        return result;
-    }
 }

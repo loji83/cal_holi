@@ -16,9 +16,7 @@ public interface HolidayMapper {
 
     List<DetailHolidayDto> checkApproval(String team, String empNo);
 
-    int rejectHoli(String holiNo, String empNo);
-
-    int approvalHoli(String holiNo, String empNo);
+    int approvalHoli(HoliParamDto holiParamDto);
 
 
 }

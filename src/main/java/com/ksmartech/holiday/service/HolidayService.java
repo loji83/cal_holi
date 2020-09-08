@@ -30,7 +30,7 @@ public class HolidayService {
     }
 
 
-    public ResponseModel applyEmp(ApplyHoliDto applyHoliDto){
+    public ResponseModel applyHoli(ApplyHoliDto applyHoliDto){
 
         int result = holidayMapper.applyEmp(applyHoliDto);
 
@@ -55,28 +55,12 @@ public class HolidayService {
         return result;
     }
 
-    // 반려 기능
-    public ResponseModel rejectHoli(String holiNo, String empNo){
-        int result = holidayMapper.rejectHoli(holiNo, empNo);
 
-        ResponseModel responseModel = new ResponseModel();
 
-        if(result == 1) {
-            responseModel.setCode("0000");
-            responseModel.setMessage("Success");
-        } else {
-            responseModel.setCode("0001");
-            responseModel.setMessage("No emp");
-        }
+    // 승인 기능
+    public ResponseModel approvalHoli(HoliParamDto holiParamDto){
 
-        logger.debug(responseModel.toString());
-
-        return responseModel;
-    }
-
-    // 반려 기능
-    public ResponseModel approvalHoli(String holiNo, String empNo){
-        int result = holidayMapper.approvalHoli(holiNo, empNo);
+        int result = holidayMapper.approvalHoli(holiParamDto);
 
         ResponseModel responseModel = new ResponseModel();
 
