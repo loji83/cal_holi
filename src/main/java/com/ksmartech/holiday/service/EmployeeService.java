@@ -1,23 +1,22 @@
 package com.ksmartech.holiday.service;
 
 
-import com.ksmartech.holiday.mapper.MainMapper;
+import com.ksmartech.holiday.mapper.EmployeeMapper;
 import com.ksmartech.holiday.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class MainService {
+public class EmployeeService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    MainMapper mainMapper;
+    EmployeeMapper employeeMapper;
 
+    /*
     public List<DetailHolidayDto> empInfo(String empNo){
         List<DetailHolidayDto> result = (List<DetailHolidayDto>) mainMapper.getInfo(empNo);
         return result;
@@ -27,14 +26,15 @@ public class MainService {
         HolidayDto result2 = mainMapper.getEmpInfo(empNo);
         return result2;
     }
+    */
 
     public EmpDto showEmpInfo(String empNo){
-        EmpDto result = mainMapper.showEmpInfo(empNo);
+        EmpDto result = employeeMapper.showEmpInfo(empNo);
         return result;
     }
 
     public ResponseModel newEmp(EmpDto empDto){
-        int result = mainMapper.newEmp(empDto);
+        int result = employeeMapper.newEmp(empDto);
 
         ResponseModel responseModel = new ResponseModel();
 
@@ -53,7 +53,7 @@ public class MainService {
 
     public ResponseModel resignEmp (String empNo){
 
-        int result = mainMapper.resignEmp(empNo);
+        int result = employeeMapper.resignEmp(empNo);
 
         ResponseModel responseModel = new ResponseModel();
 

@@ -1,15 +1,12 @@
 package com.ksmartech.holiday.controller;
 
 import com.ksmartech.holiday.model.*;
-import com.ksmartech.holiday.service.MainService;
+import com.ksmartech.holiday.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
 
 
 @Controller
@@ -18,7 +15,7 @@ public class EmployeeController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    MainService mainService;
+    EmployeeService employeeService;
 
     /*
     @GetMapping(value = "/holiday/detail-info/{empNo}")
@@ -49,7 +46,7 @@ public class EmployeeController {
     public EmpDto EmpInfo(@PathVariable String empNo){
         logger.debug(empNo);
 
-        EmpDto result = mainService.showEmpInfo(empNo);
+        EmpDto result = employeeService.showEmpInfo(empNo);
 
         return result;
     }
@@ -59,7 +56,7 @@ public class EmployeeController {
     public ResponseModel ResignEmp(@PathVariable String empNo){
         logger.debug(empNo);
 
-        ResponseModel result = mainService.resignEmp(empNo);
+        ResponseModel result = employeeService.resignEmp(empNo);
 
         return result;
     }
@@ -67,7 +64,8 @@ public class EmployeeController {
     @PostMapping(value = "/employee")
     @ResponseBody
     public ResponseModel NewEmp(@RequestBody EmpDto empDto){
-        ResponseModel result = mainService.newEmp(empDto);
+
+        ResponseModel result = employeeService.newEmp(empDto);
 
         return result;
     }

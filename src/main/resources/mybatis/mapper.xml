@@ -2,19 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.ksmartech.holiday.mapper.MainMapper">
-
-    <select id="getInfo" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
-        SELECT *
-        FROM detail_holi
-        WHERE emp_no = #{empNo}
-    </select>
-
-    <select id="getEmpInfo" resultType="com.ksmartech.holiday.model.HolidayDto">
-        SELECT *
-        FROM holi
-        WHERE emp_no = #{empNo}
-    </select>
+<mapper namespace="com.ksmartech.holiday.mapper.EmployeeMapper">
 
     <select id="showEmpInfo" resultType="com.ksmartech.holiday.model.EmpDto">
         SELECT *
@@ -32,5 +20,6 @@
         INSERT INTO employee (join_date, name, birthday, position, team, rank, state)
         VALUES(#{joinDate}, #{name}, #{birthday}, #{position},#{team}, #{rank}, #{state})
     </insert>
+
 </mapper>
 

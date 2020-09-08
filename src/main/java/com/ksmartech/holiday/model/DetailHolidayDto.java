@@ -5,15 +5,26 @@ public class DetailHolidayDto {
     private String startDate;
     private String endDate;
     private String duration;
-    private String remain;
+    private String holiType;
+    private String state;
 
-    public String getRemain() {
-        return remain;
+
+    public String getHoliType() {
+        return holiType;
     }
 
-    public void setRemain(String remain) {
-        this.remain = remain;
+    public void setHoliType(String holiType) {
+        this.holiType = holiType;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 
     public String getStartDate() {
         return startDate;
@@ -45,7 +56,9 @@ public class DetailHolidayDto {
                 "startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", duration='" + duration + '\'' +
-                ", remain='" + remain + '\'' +
+                ", holiType='" + holiType + '\'' +
+                ", state='" + state + '\'' +
                 '}';
     }
+
 }
