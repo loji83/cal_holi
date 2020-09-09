@@ -21,19 +21,19 @@ public class HolidayService {
     @Autowired
     EmployeeMapper employeeMapper;
 
-
+    // 휴가 내역조회
     public List<DetailHolidayDto> empInfo(String empNo) {
         List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayMapper.getInfo(empNo);
         return result;
     }
 
-
+    // 잔여일 조회
     public HolidayDto getEmpInfo(String empNo) {
         HolidayDto result = holidayMapper.getEmpInfo(empNo);
         return result;
     }
 
-
+    // 신청
     public ResponseModel applyHoli(ApplyHoliDto applyHoliDto) {
 
         int result = holidayMapper.applyEmp(applyHoliDto);
@@ -63,7 +63,7 @@ public class HolidayService {
             return responseModel;
         }
 
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayMapper.checkApproval(team, empNo);
+        List<DetailHolidayDto> result = holidayMapper.checkApproval(team, empNo);
         responseModel.setCode("0000");
         responseModel.setMessage("Success");
         responseModel.setData(result);
@@ -74,16 +74,16 @@ public class HolidayService {
     // 승인 기능
     public ResponseModel approvalHoli(HoliParamDto holiParamDto) {
 
+        ResponseModel responseModel = new ResponseModel();
+
         if(!isTeamLeader(holiParamDto.getEmpNo())){
-            ResponseModel responseModel = new ResponseModel();
             responseModel.setCode("0100");
             responseModel.setMessage("You're not leader.");
+
             return responseModel;
         }
 
         int result = holidayMapper.approvalHoli(holiParamDto);
-
-        ResponseModel responseModel = new ResponseModel();
 
         if (result == 1) {
             responseModel.setCode("0000");
