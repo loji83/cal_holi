@@ -6,6 +6,7 @@ import com.ksmartech.holiday.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class HolidayService {
 
     // 휴가 내역조회
     public List<DetailHolidayDto> empInfo(String empNo) {
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayMapper.getInfo(empNo);
+        List<DetailHolidayDto> result = holidayMapper.getInfo(empNo);
         return result;
     }
 
@@ -117,7 +118,6 @@ public class HolidayService {
         return responseModel;
     }
 
-
     private boolean isTeamLeader(String empNo) {
 
         String rank = employeeMapper.isLeader(empNo);
@@ -125,5 +125,37 @@ public class HolidayService {
             return true;
         }
         return false;
+    }
+
+    //휴가 상태 조회 기능
+    public ResponseModel checkHoliState(DetailHolidayDto detailHolidayDto) {
+        ResponseModel responseModel = new ResponseModel();
+
+        if(!isHolidayState(detailHolidayDto.getState())){
+            responseModel.setCode("0100");
+            responseModel.setMessage("It's impossible to change this holiday's state.");
+        } else {
+            detailHolidayDto.setState("사용");
+            responseModel.setCode("0000");
+            responseModel.setMessage("Success");
+        }
+
+        return responseModel;
+    }
+
+        private boolean isHolidayState(String state) {
+
+        String rank = holidayMapper.isHoliState(state);
+
+        if (rank.equals("승인")) {
+            return true;
+        }
+        return false;
+    }
+
+    @Scheduled(fixedDelay = 2000, initialDelay = 3000)
+    private void scheduleTest() {
+        logger.debug("HolidayService 내부");
+
     }
 }
