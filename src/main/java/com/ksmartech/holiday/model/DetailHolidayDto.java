@@ -2,29 +2,20 @@ package com.ksmartech.holiday.model;
 
 // 휴가 세부내용 조회를 위한 모델
 public class DetailHolidayDto {
+    private String holiNo;
     private String startDate;
     private String endDate;
     private String duration;
     private String holiType;
     private String state;
 
-
-    public String getHoliType() {
-        return holiType;
+    public String getHoliNo() {
+        return holiNo;
     }
 
-    public void setHoliType(String holiType) {
-        this.holiType = holiType;
+    public void setHoliNo(String holiNo) {
+        this.holiNo = holiNo;
     }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
 
     public String getStartDate() {
         return startDate;
@@ -50,9 +41,26 @@ public class DetailHolidayDto {
         this.duration = duration;
     }
 
+    public String getHoliType() {
+        return holiType;
+    }
+
+    public void setHoliType(String holiType) {
+        this.holiType = holiType;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "DetailHolidayDto{" +
+                "holNo='" + holiNo + '\'' +
                 "startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", duration='" + duration + '\'' +
@@ -60,5 +68,4 @@ public class DetailHolidayDto {
                 ", state='" + state + '\'' +
                 '}';
     }
-
 }

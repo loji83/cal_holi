@@ -23,8 +23,8 @@
 
     <select id="checkApproval" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
         SELECT *
-        FROM employee e, detail_holi d
-        WHERE e.emp_no = d.emp_no AND e.rank = '팀장' AND d.emp_no = #{empNo} AND e.team = #{team}
+        FROM detail_holi d,employee e
+        WHERE d.emp_no = e.emp_no AND e.team = #{team} AND d.state = '대기'
     </select>
 
 
