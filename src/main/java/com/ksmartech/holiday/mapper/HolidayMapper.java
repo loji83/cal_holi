@@ -20,6 +20,7 @@ public interface HolidayMapper {
 
     int cancelHoli(HoliParamDto holiParamDto);
 
+    String isHoliState(String state);
 }
 
 
