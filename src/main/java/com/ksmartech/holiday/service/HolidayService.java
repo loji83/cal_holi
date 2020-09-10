@@ -130,6 +130,7 @@ public class HolidayService {
     }
 
     // 오늘 날짜에 해당하는 승인 휴가 조회
+    @Transactional(rollbackFor = Exception.class)
     public void findApprovalHoli() {
 
         GregorianCalendar cal = new GregorianCalendar();
@@ -140,20 +141,20 @@ public class HolidayService {
         String strDate = dateFormat.format(dt);
         logger.debug(strDate);
 
-        int a = holidayMapper.findApprovalHoli(strDate); //승인상태db 가져오삼
-
-        logger.debug(a+"");
+        int cnt = holidayMapper.findApprovalHoli(strDate); //승인 상태 db 가져오삼
+            // update의 return값? update 성공한 row의 수
+        logger.debug("오늘 날짜에 사용되는 휴가 갯수는? : " + cnt + "개");
 
     }
 
 
     // @Scheduled(cron="0 0 02 * * ?") 매일 새벽2시 실행
-    @Scheduled(fixedDelay = 2000, initialDelay = 3000)
-    @Transactional
+    @Scheduled(fixedDelay = 10000, initialDelay = 3000)
+    @Transactional(rollbackFor = Exception.class)
     public void scheduleTest() {
-        logger.debug("HolidayService 내부");
 
         findApprovalHoli();
+
 
     }
 }

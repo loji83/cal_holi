@@ -40,10 +40,11 @@
 
     <!-- 오늘 날짜에 해당하는 승인 휴가 '사용'으로 상태 변경, 잔여일 차감 -->
     <update id="findApprovalHoli">
-        UPDATE detail_holi
-        SET state = '사용',
-	        remain = remain - duration
-        WHERE state = '승인' AND startDate = #{strDate}
+        UPDATE detail_holi d
+        INNER JOIN holi h ON h.emp_no = d.emp_no
+        SET d.state = '사용',
+            h.remain = h.remain - d.duration
+        WHERE d.state = '승인' and d.startDate = #{strDate}
     </update>
 
 </mapper>

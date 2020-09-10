@@ -24,7 +24,7 @@ public class HolidayController {
     // 휴가 내역 조회 기능
     @GetMapping(value = "/holiday/detail/{empNo}")
     @ResponseBody
-    public List<DetailHolidayDto> detailHolidayInfo(@PathVariable String empNo){
+    public List<DetailHolidayDto> DetailHolidayInfo(@PathVariable String empNo){
         logger.debug(empNo);
 
         List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayService.empInfo(empNo);
