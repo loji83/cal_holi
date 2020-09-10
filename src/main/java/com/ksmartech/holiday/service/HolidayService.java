@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class HolidayService {
@@ -57,7 +59,7 @@ public class HolidayService {
     // 결재 조회
     public ResponseModel checkApproval(String team, String empNo) {
         ResponseModel responseModel = new ResponseModel();
-        if(!isTeamLeader(empNo)){
+        if (!isTeamLeader(empNo)) {
             responseModel.setCode("0100");
             responseModel.setMessage("You're not leader.");
 
@@ -77,7 +79,7 @@ public class HolidayService {
 
         ResponseModel responseModel = new ResponseModel();
 
-        if(!isTeamLeader(holiParamDto.getEmpNo())){
+        if (!isTeamLeader(holiParamDto.getEmpNo())) {
             responseModel.setCode("0100");
             responseModel.setMessage("You're not leader.");
 
@@ -127,35 +129,31 @@ public class HolidayService {
         return false;
     }
 
-    //휴가 상태 조회 기능
-    public ResponseModel checkHoliState(DetailHolidayDto detailHolidayDto) {
-        ResponseModel responseModel = new ResponseModel();
+    //상태가 승인, 휴가 시작일이 오늘이여야하는 db의  data만 업데이트
+    // '승인' 상태의 휴가 조회
+    @Transactional
+    public void findApprovalHoli() {
 
-        if(!isHolidayState(detailHolidayDto.getState())){
-            responseModel.setCode("0100");
-            responseModel.setMessage("It's impossible to change this holiday's state.");
-        } else {
-            detailHolidayDto.setState("사용");
-            responseModel.setCode("0000");
-            responseModel.setMessage("Success");
-        }
+        GregorianCalendar cal = new GregorianCalendar();
 
-        return responseModel;
+        Date dt = cal.getTime();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = dateFormat.format(dt);
+        logger.debug(strDate);
+
+        int a = holidayMapper.findApprovalHoli(strDate); //승인상태db 가져오삼
+        logger.debug(a+"");
+
+
+
     }
 
-        private boolean isHolidayState(String state) {
-
-        String rank = holidayMapper.isHoliState(state);
-
-        if (rank.equals("승인")) {
-            return true;
-        }
-        return false;
-    }
-
+    // @Scheduled(cron="0 0 02 * * ?") 매일 새벽2시 실행
     @Scheduled(fixedDelay = 2000, initialDelay = 3000)
     private void scheduleTest() {
         logger.debug("HolidayService 내부");
+        findApprovalHoli();
 
     }
 }
