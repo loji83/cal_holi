@@ -143,7 +143,7 @@ public class HolidayService {
 
         int cnt = holidayMapper.findApprovalHoli(strDate); //승인 상태 db 가져오삼
             // update의 return값? update 성공한 row의 수
-        logger.debug("오늘 날짜에 사용되는 휴가 갯수는? : " + cnt + "개");
+        logger.debug(cnt + "");
 
     }
 
