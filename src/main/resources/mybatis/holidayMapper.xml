@@ -27,7 +27,6 @@
         WHERE d.emp_no = e.emp_no AND e.team = #{team} AND d.state = '대기'
     </select>
 
-
     <update id="approvalHoli" parameterType="com.ksmartech.holiday.model.HoliParamDto">
         UPDATE detail_holi
         SET state = #{state}
@@ -39,18 +38,13 @@
         WHERE holi_no = #{holiNo} AND emp_no = #{empNo}
     </delete>
 
-<!--    &lt;!&ndash; 승인 휴가 조회 &ndash;&gt;-->
-<!--    <select id="findApprovalHoli" resultType="com.ksmartech.holiday.model.DetailHolidayDto">-->
-<!--        select *-->
-<!--        FROM detail_holi-->
-<!--        WHERE state = '승인'-->
-<!--    </select>-->
-
-    <!-- 승인 휴가 '사용'으로 상태 변경 -->
+    <!-- 오늘 날짜에 해당하는 승인 휴가 '사용'으로 상태 변경, 잔여일 차감 -->
     <update id="findApprovalHoli">
         UPDATE detail_holi
-        SET state = '사용'
+        SET state = '사용',
+	        remain = remain - duration
         WHERE state = '승인' AND startDate = #{strDate}
     </update>
+
 </mapper>
 

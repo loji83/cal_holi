@@ -129,9 +129,7 @@ public class HolidayService {
         return false;
     }
 
-    //상태가 승인, 휴가 시작일이 오늘이여야하는 db의  data만 업데이트
-    // '승인' 상태의 휴가 조회
-    @Transactional
+    // 오늘 날짜에 해당하는 승인 휴가 조회
     public void findApprovalHoli() {
 
         GregorianCalendar cal = new GregorianCalendar();
@@ -143,16 +141,18 @@ public class HolidayService {
         logger.debug(strDate);
 
         int a = holidayMapper.findApprovalHoli(strDate); //승인상태db 가져오삼
+
         logger.debug(a+"");
-
-
 
     }
 
+
     // @Scheduled(cron="0 0 02 * * ?") 매일 새벽2시 실행
     @Scheduled(fixedDelay = 2000, initialDelay = 3000)
-    private void scheduleTest() {
+    @Transactional
+    public void scheduleTest() {
         logger.debug("HolidayService 내부");
+
         findApprovalHoli();
 
     }
