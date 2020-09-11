@@ -38,9 +38,11 @@ public class HolidayService {
     // 신청
     public ResponseModel applyHoli(ApplyHoliDto applyHoliDto) {
 
-        if(applyHoliDto.getHoliType().equals("반차")){
+        if (applyHoliDto.getHoliType().equals("반차")) {
             applyHoliDto.setDuration(0.5);
-        }else{
+            applyHoliDto.setEndDate(applyHoliDto.getStartDate());
+
+        } else {
             //
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date start = applyHoliDto.getStartDate();
@@ -57,7 +59,7 @@ public class HolidayService {
             while (cal1.before(cal2)) {
                 logger.debug(cal1.before(cal2) + "");
                 if ((Calendar.SATURDAY != cal1.get(Calendar.DAY_OF_WEEK))
-                        &&(Calendar.SUNDAY != cal1.get(Calendar.DAY_OF_WEEK))) {
+                        && (Calendar.SUNDAY != cal1.get(Calendar.DAY_OF_WEEK))) {
                     numberOfDays++;
                 }
                 cal1.add(Calendar.DATE, 1);
@@ -183,7 +185,7 @@ public class HolidayService {
         logger.debug(result.toString());
 
         //잔여일, 사용날짜 계산
-        for(int i=0; i < result.size(); i++){
+        for (int i = 0; i < result.size(); i++) {
             DetailHolidayDto detailHolidayDto = result.get(i);
             logger.debug(detailHolidayDto.toString());
             holidayMapper.calTotalHoliInfo(detailHolidayDto);
