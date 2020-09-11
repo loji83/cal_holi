@@ -38,30 +38,35 @@ public class HolidayService {
     // 신청
     public ResponseModel applyHoli(ApplyHoliDto applyHoliDto) {
 
+        if(applyHoliDto.getHoliType().equals("반차")){
+            applyHoliDto.setDuration(0.5);
+        }else{
+            //
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date start = applyHoliDto.getStartDate();
+            Date end = applyHoliDto.getEndDate();
 
-        //
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date start = applyHoliDto.getStartDate();
-        Date end = applyHoliDto.getEndDate();
+            Calendar cal1 = Calendar.getInstance();
+            Calendar cal2 = Calendar.getInstance();
+            cal1.setTime(start);
+            cal2.setTime(end);
 
-        Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
-        cal1.setTime(start);
-        cal2.setTime(end);
+            logger.debug(cal1 + " / " + cal2);
 
-        logger.debug(cal1 + " / " + cal2);
+            double numberOfDays = 1;
+            while (cal1.before(cal2)) {
+                logger.debug(cal1.before(cal2) + "");
+                if ((Calendar.SATURDAY != cal1.get(Calendar.DAY_OF_WEEK))
+                        &&(Calendar.SUNDAY != cal1.get(Calendar.DAY_OF_WEEK))) {
+                    numberOfDays++;
+                }
+                cal1.add(Calendar.DATE, 1);
 
-        double numberOfDays = 0;
-        while (cal1.before(cal2)) {
-            logger.debug(cal1.before(cal2) + "");
-            if ((Calendar.SATURDAY != cal1.get(Calendar.DAY_OF_WEEK))
-                    &&(Calendar.SUNDAY != cal1.get(Calendar.DAY_OF_WEEK))) {
-                numberOfDays++;
             }
-            cal1.add(Calendar.DATE,1);
+
+            logger.debug(String.valueOf(numberOfDays));
+            applyHoliDto.setDuration(numberOfDays);
         }
-        logger.debug(String.valueOf(numberOfDays));
-        applyHoliDto.setDuration(numberOfDays);
 
         logger.debug(applyHoliDto.toString());
         int result = holidayMapper.applyHoli(applyHoliDto);
