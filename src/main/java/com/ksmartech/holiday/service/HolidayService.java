@@ -39,7 +39,7 @@ public class HolidayService {
     // 신청
     public ResponseModel applyHoli(ApplyHoliDto applyHoliDto) {
 
-        int result = holidayMapper.applyEmp(applyHoliDto);
+        int result = holidayMapper.applyHoli(applyHoliDto);
 
         ResponseModel responseModel = new ResponseModel();
 
@@ -129,7 +129,7 @@ public class HolidayService {
         return false;
     }
 
-    // 오늘 날짜에 해당하는 승인 휴가 조회
+    // 오늘 날짜에 해당하는 승인 휴가 state = '사용' 변경
     @Transactional(rollbackFor = Exception.class)
     public void findApprovalHoli() {
 
@@ -138,14 +138,23 @@ public class HolidayService {
         Date dt = cal.getTime();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         String strDate = dateFormat.format(dt);
         logger.debug(strDate);
 
-        int cnt = holidayMapper.findApprovalHoli(strDate); //승인 상태 db 가져오삼
+        int cnt = holidayMapper.changeApprovalHoli(strDate); //승인 상태 db 가져오삼
             // update의 return값? update 성공한 row의 수
         logger.debug(cnt + "");
 
+        getUsedHoly(strDate);
+
     }
+
+    private void getUsedHoly(String dateStr){
+        holidayMapper.changeApprovalHoli(dateStr);
+    }
+
+
 
 
     // @Scheduled(cron="0 0 02 * * ?") 매일 새벽2시 실행
@@ -154,7 +163,5 @@ public class HolidayService {
     public void scheduleTest() {
 
         findApprovalHoli();
-
-
     }
 }

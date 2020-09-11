@@ -16,9 +16,9 @@
         WHERE emp_no = #{empNo}
     </select>
 
-    <insert id="applyEmp">
-        INSERT INTO detail_holi (emp_no, startDate, endDate, holiType)
-        VALUES(#{empNo}, #{startDate}, #{endDate}, #{holiType})
+    <insert id="applyHoli">
+        INSERT INTO detail_holi (emp_no, startDate, endDate, holiType, duration)
+        VALUES(#{empNo}, #{startDate}, #{endDate}, #{holiType}, #{duration})
     </insert>
 
     <select id="checkApproval" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
@@ -38,14 +38,27 @@
         WHERE holi_no = #{holiNo} AND emp_no = #{empNo}
     </delete>
 
-    <!-- 오늘 날짜에 해당하는 승인 휴가 '사용'으로 상태 변경, 잔여일 차감 -->
-    <update id="findApprovalHoli">
-        UPDATE detail_holi d
-        INNER JOIN holi h ON h.emp_no = d.emp_no
-        SET d.state = '사용',
-            h.remain = h.remain - d.duration
-        WHERE d.state = '승인' and d.startDate = #{strDate}
+    <!-- 오늘 날짜에 해당하는 승인 휴가 '사용'으로 상태 변경 -->
+    <update id="changeApprovalHoli">
+        UPDATE detail_holi
+        SET state = '사용'
+        WHERE state = '승인' and startDate = #{strDate}
     </update>
+
+    <!-- 오늘 날짜에 사용되는 휴가 list -->
+    <select id="getUpdatedHoli" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
+        select *
+        from holi where state = '사용' and startDate = #{strDate}
+    </select>
+
+    <!-- 이후 자바에서 for문을 돌면서 get(index) -->
+    <update id="calTotalHoliInfo">
+        update holi
+        set (cntused, remain)
+        value (cntused + #{duration}, remain - #{duration})
+        where empNo = #{empno}
+    </update>
+
 
 </mapper>
 

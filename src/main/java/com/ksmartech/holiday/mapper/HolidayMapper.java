@@ -12,7 +12,7 @@ public interface HolidayMapper {
 
     HolidayDto getEmpInfo(String empNo);
 
-    int applyEmp(ApplyHoliDto applyHoliDto);
+    int applyHoli(ApplyHoliDto applyHoliDto);
 
     List<DetailHolidayDto> checkApproval(String team, String empNo);
 
@@ -20,7 +20,9 @@ public interface HolidayMapper {
 
     int cancelHoli(HoliParamDto holiParamDto);
 
-    int findApprovalHoli(String strDate);
+    int changeApprovalHoli(String strDate);
+
+    void calTotalHoliInfo();
 }
 
 

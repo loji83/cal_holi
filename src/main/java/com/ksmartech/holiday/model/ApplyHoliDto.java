@@ -5,6 +5,15 @@ public class ApplyHoliDto {
     private String startDate;
     private String endDate;
     private String holiType;
+    private String duration;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getEmpNo() {
         return empNo;
@@ -45,6 +54,7 @@ public class ApplyHoliDto {
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", holiType='" + holiType + '\'' +
+                ", duration='" + duration + '\'' +
                 '}';
     }
 }
