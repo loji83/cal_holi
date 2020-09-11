@@ -1,19 +1,13 @@
 package com.ksmartech.holiday.model;
 
+import java.util.Date;
+
 public class ApplyHoliDto {
     private String empNo;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private String holiType;
-    private String duration;
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
+    private double duration;
 
     public String getEmpNo() {
         return empNo;
@@ -23,19 +17,19 @@ public class ApplyHoliDto {
         this.empNo = empNo;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -47,14 +41,22 @@ public class ApplyHoliDto {
         this.holiType = holiType;
     }
 
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
     @Override
     public String toString() {
         return "ApplyHoliDto{" +
                 "empNo='" + empNo + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", holiType='" + holiType + '\'' +
-                ", duration='" + duration + '\'' +
+                ", duration=" + duration +
                 '}';
     }
 }

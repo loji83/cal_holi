@@ -16,9 +16,9 @@
         WHERE emp_no = #{empNo}
     </select>
 
-    <insert id="applyHoli">
-        INSERT INTO detail_holi (emp_no, startDate, endDate, holiType, duration)
-        VALUES(#{empNo}, #{startDate}, #{endDate}, #{holiType}, #{duration})
+    <insert id="applyHoli" parameterType="com.ksmartech.holiday.model.ApplyHoliDto">
+        INSERT INTO detail_holi (emp_no, startDate, endDate, holiType, duration, state)
+        VALUES(#{empNo}, #{startDate}, #{endDate}, #{holiType}, #{duration}, '대기')
     </insert>
 
     <select id="checkApproval" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
