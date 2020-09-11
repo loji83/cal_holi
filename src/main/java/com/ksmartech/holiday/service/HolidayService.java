@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -26,7 +27,7 @@ public class HolidayService {
 
     // 휴가 내역조회
     public List<DetailHolidayDto> empInfo(String empNo) {
-        List<DetailHolidayDto> result = holidayMapper.getInfo(empNo);
+        ArrayList<DetailHolidayDto> result = holidayMapper.getInfo(empNo);
         return result;
     }
 
@@ -66,7 +67,7 @@ public class HolidayService {
             return responseModel;
         }
 
-        List<DetailHolidayDto> result = holidayMapper.checkApproval(team, empNo);
+        ArrayList<DetailHolidayDto> result = holidayMapper.checkApproval(team, empNo);
         responseModel.setCode("0000");
         responseModel.setMessage("Success");
         responseModel.setData(result);
@@ -129,10 +130,11 @@ public class HolidayService {
         return false;
     }
 
-    // 오늘 날짜에 해당하는 승인 휴가 state = '사용' 변경
-    @Transactional(rollbackFor = Exception.class)
-    public void findApprovalHoli() {
 
+    @Transactional(rollbackFor = Exception.class)
+    public void todayUpdate() {
+
+        // 오늘 날짜 확인
         GregorianCalendar cal = new GregorianCalendar();
 
         Date dt = cal.getTime();
@@ -142,26 +144,27 @@ public class HolidayService {
         String strDate = dateFormat.format(dt);
         logger.debug(strDate);
 
+        // 오늘 날짜에 해당하는 승인 휴가 state = '사용' 변경
         int cnt = holidayMapper.changeApprovalHoli(strDate); //승인 상태 db 가져오삼
-            // update의 return값? update 성공한 row의 수
         logger.debug(cnt + "");
 
-        getUsedHoly(strDate);
+        // 오늘 날짜에 사용되는 휴가 list
+        ArrayList<DetailHolidayDto> result = holidayMapper.getUpdatedHoli(strDate);
+        logger.debug(result.toString());
 
+        //잔여일, 사용날짜 계산
+        for(int i=0; i < result.size(); i++){
+            DetailHolidayDto detailHolidayDto = result.get(i);
+            logger.debug(detailHolidayDto.toString());
+            holidayMapper.calTotalHoliInfo(detailHolidayDto);
+        }
     }
-
-    private void getUsedHoly(String dateStr){
-        holidayMapper.changeApprovalHoli(dateStr);
-    }
-
-
-
 
     // @Scheduled(cron="0 0 02 * * ?") 매일 새벽2시 실행
-    @Scheduled(fixedDelay = 10000, initialDelay = 3000)
+    //@Scheduled(fixedDelay = 10000, initialDelay = 3000)
     @Transactional(rollbackFor = Exception.class)
     public void scheduleTest() {
 
-        findApprovalHoli();
+        todayUpdate();
     }
 }

@@ -83,4 +83,13 @@ public class HolidayController {
         return result;
     }
 
+    @GetMapping(value = "/batch")
+    @ResponseBody
+    public String test(){
+        holidayService.scheduleTest();
+
+        return "ok";
+    }
+
+
 }

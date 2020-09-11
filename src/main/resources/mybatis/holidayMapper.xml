@@ -48,15 +48,16 @@
     <!-- 오늘 날짜에 사용되는 휴가 list -->
     <select id="getUpdatedHoli" resultType="com.ksmartech.holiday.model.DetailHolidayDto">
         select *
-        from holi where state = '사용' and startDate = #{strDate}
+        from detail_holi
+        where state = '사용' and startDate = #{strDate}
     </select>
 
     <!-- 이후 자바에서 for문을 돌면서 get(index) -->
-    <update id="calTotalHoliInfo">
-        update holi
-        set (cntused, remain)
-        value (cntused + #{duration}, remain - #{duration})
-        where empNo = #{empno}
+    <update id="calTotalHoliInfo" parameterType="com.ksmartech.holiday.model.DetailHolidayDto">
+        UPDATE holi h
+        SET cntUsed = cntUsed + #{duration},
+            remain = remain - #{duration}
+        WHERE emp_no = #{empNo}
     </update>
 
 
