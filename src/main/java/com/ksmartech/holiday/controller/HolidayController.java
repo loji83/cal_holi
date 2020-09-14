@@ -21,6 +21,11 @@ public class HolidayController {
     @Autowired
     HolidayService holidayService;
 
+    @GetMapping(value = "/")
+    public String init(){
+        return "index";
+    }
+
 
     // 휴가 내역 조회 기능
     @GetMapping(value = "/holiday/detail/{empNo}")
