@@ -9,7 +9,11 @@
 <html>
 <head>
     <title>Title</title>
+    <!--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -88,7 +92,41 @@
 </head>
 
 <body>
+<div class="container">
 
+    <div class="row">
+       <div class="col-4">
+           <h2>linked picker</h2>
+           <p>These are two individual date and time pickers, of which, one is used to select start date and time and the other is used to select end date and time.</p>
+           <!-- datepicker -->
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                       <label class="control-label" for="datepicker-start">Start Date</label>
+                       <input type="text" class="form-control" id="datepicker-start">
+                   </div>
+               </div>
+               <div class="col-sm-6">
+                   <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                       <label class="control-label" for="datepicker-end">End Date</label>
+                       <input type="text" class="form-control" id="datepicker-end">
+                   </div>
+               </div>
+           </div>
+       </div>
+        <div class="col-8">
+            <h2>first row col4</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h2>second row col4</h2>
+        </div>
+        <div class="col-8">
+            <h2>second row col4</h2>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
