@@ -24,7 +24,7 @@ public class HolidayService {
     EmployeeMapper employeeMapper;
 
     // 휴가 내역조회
-    public List<DetailHolidayDto> empInfo(String empNo) {
+    public ArrayList<DetailHolidayDto> empInfo(String empNo) {
         ArrayList<DetailHolidayDto> result = holidayMapper.getInfo(empNo);
         return result;
     }

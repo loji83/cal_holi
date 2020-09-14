@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,13 +25,14 @@ public class HolidayController {
     // 휴가 내역 조회 기능
     @GetMapping(value = "/holiday/detail/{empNo}")
     @ResponseBody
-    public List<DetailHolidayDto> DetailHolidayInfo(@PathVariable String empNo){
+    public ArrayList<DetailHolidayDto> DetailHolidayInfo(@PathVariable String empNo){
         logger.debug(empNo);
 
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) holidayService.empInfo(empNo);
+        ArrayList<DetailHolidayDto> result = holidayService.empInfo(empNo);
 
         return result;
     }
+
 
     // 잔여일 조회 기능
     @GetMapping(value = "/holiday/{empNo}")
@@ -43,6 +45,7 @@ public class HolidayController {
         return result;
     }
 
+
     // 휴가 신청 기능
     @PostMapping(value = "/holiday")
     @ResponseBody
@@ -52,6 +55,7 @@ public class HolidayController {
 
         return result;
     }
+
 
     // 결재 조회 기능
     @GetMapping(value = "/team/holiday/{team}/{empNo}")
@@ -75,6 +79,7 @@ public class HolidayController {
         return result;
     }
 
+
     // 휴가 신청 취소 기능
     @DeleteMapping(value = "/holiday")
     @ResponseBody
@@ -83,6 +88,7 @@ public class HolidayController {
         return result;
     }
 
+    // 스케줄러 동작 확인
     @GetMapping(value = "/batch")
     @ResponseBody
     public String test(){
@@ -90,6 +96,4 @@ public class HolidayController {
 
         return "ok";
     }
-
-
 }
