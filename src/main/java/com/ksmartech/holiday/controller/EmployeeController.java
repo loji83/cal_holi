@@ -17,30 +17,8 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    /*
-    @GetMapping(value = "/holiday/detail-info/{empNo}")
-    @ResponseBody
-    public List<DetailHolidayDto> detailHolidayInfo(@PathVariable String empNo){
-        logger.debug(empNo);
 
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) mainService.empInfo(empNo);
-
-        return result;
-    }
-
-
-    @GetMapping(value = "/holiday/holi-info/{empNo}")
-    @ResponseBody
-    public HolidayDto HolidayInfo(@PathVariable String empNo) {
-        logger.debug(empNo);
-
-        HolidayDto result = mainService.getEmpInfo(empNo);
-
-        return result;
-    }
-
-
-     */
+    //사원 정보 조회 기능
     @GetMapping(value = "/employee/{empNo}")
     @ResponseBody
     public EmpDto EmpInfo(@PathVariable String empNo){
@@ -51,6 +29,8 @@ public class EmployeeController {
         return result;
     }
 
+
+    //퇴사 기능
     @PutMapping(value = "/employee/{empNo}")
     @ResponseBody
     public ResponseModel ResignEmp(@PathVariable String empNo){
@@ -61,6 +41,8 @@ public class EmployeeController {
         return result;
     }
 
+
+    //신규 사원 입사
     @PostMapping(value = "/employee")
     @ResponseBody
     public ResponseModel NewEmp(@RequestBody EmpDto empDto){

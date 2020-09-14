@@ -16,23 +16,14 @@ public class EmployeeService {
     @Autowired
     EmployeeMapper employeeMapper;
 
-    /*
-    public List<DetailHolidayDto> empInfo(String empNo){
-        List<DetailHolidayDto> result = (List<DetailHolidayDto>) mainMapper.getInfo(empNo);
-        return result;
-    }
 
-    public HolidayDto getEmpInfo(String empNo){
-        HolidayDto result2 = mainMapper.getEmpInfo(empNo);
-        return result2;
-    }
-    */
-
+    // 사원 정보 조회
     public EmpDto showEmpInfo(String empNo){
         EmpDto result = employeeMapper.showEmpInfo(empNo);
         return result;
     }
 
+    // 신규사원 입사
     public ResponseModel newEmp(EmpDto empDto){
         int result = employeeMapper.newEmp(empDto);
 
@@ -51,6 +42,7 @@ public class EmployeeService {
         return responseModel;
     }
 
+    // 퇴사
     public ResponseModel resignEmp (String empNo){
 
         int result = employeeMapper.resignEmp(empNo);

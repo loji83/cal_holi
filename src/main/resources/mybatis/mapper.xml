@@ -4,23 +4,27 @@
 
 <mapper namespace="com.ksmartech.holiday.mapper.EmployeeMapper">
 
+    <!-- 사원 정보 조회 -->
     <select id="showEmpInfo" resultType="com.ksmartech.holiday.model.EmpDto">
         SELECT *
         FROM employee
         WHERE emp_no = #{empNo}
     </select>
 
+    <!-- 퇴사 기능; 재직상태에서 퇴사상태로 변경 -->
     <update id="resignEmp">
         UPDATE employee
         SET state = '퇴사'
         WHERE emp_no = #{empNo}
     </update>
 
+    <!-- 신규사원 입사 기능 -->
     <insert id="newEmp">
         INSERT INTO employee (join_date, name, birthday, position, team, rank, state)
         VALUES(#{joinDate}, #{name}, #{birthday}, #{position},#{team}, #{rank}, #{state})
     </insert>
 
+    <!-- '팀장' 확인 -->
     <select id="isLeader" resultType="string">
         SELECT rank
         FROM employee
