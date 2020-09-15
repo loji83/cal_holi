@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.GregorianCalendar" %><%--
   Created by IntelliJ IDEA.
   User: KST
   Date: 2020-09-15
@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Holiday</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -118,7 +118,7 @@
             </div>
             <hr>
             <div class="container">
-
+                <%= request.getAttribute("holiCnt")%>
             </div>
         </main>
     </div>

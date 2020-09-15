@@ -1,5 +1,7 @@
 package com.ksmartech.holiday.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.ksmartech.holiday.model.*;
 import com.ksmartech.holiday.service.HolidayService;
 import org.slf4j.Logger;
@@ -25,8 +27,16 @@ public class HolidayController {
     public String init(Model model, @PathVariable String empNo){
 
 
-        model.addAttribute("holiCnt", holidayService.cntUsedHoli(empNo));
+        HolidayDto holidayDto = holidayService.cntUsedHoli(empNo);
+
+        Gson gson = new Gson();
+
+        String holiJson = gson.toJson(holidayDto);
+        logger.debug(holiJson);
+
+        model.addAttribute("holiCnt", holiJson);
         model.addAttribute("holiList",holidayService.holiList(empNo));
+        logger.debug(model.toString());
 
         return "index.jsp";
     }
