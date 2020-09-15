@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,22 +23,28 @@ public class HolidayController {
     @Autowired
     HolidayService holidayService;
 
+    /*
     @GetMapping(value = "/")
     public String init(){
 
-        return "index.jsp";
+        return "home.jsp";
     }
+*/
 
 
     // 휴가 내역 조회 기능
     @GetMapping(value = "/holiday/detail/{empNo}")
-    @ResponseBody
-    public ArrayList<DetailHolidayDto> DetailHolidayInfo(@PathVariable String empNo){
-        logger.debug(empNo);
+    public String DetailHolidayInfo(Model model, @PathVariable String empNo){
+        logger.debug("empNo : "+ empNo);
+
 
         ArrayList<DetailHolidayDto> result = holidayService.empInfo(empNo);
+        logger.debug(result+"");
 
-        return result;
+        //model.addAttribute("list", result);
+        //logger.debug("model : " + model.toString());
+
+        return "home.jsp";
     }
 
 
