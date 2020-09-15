@@ -5,14 +5,11 @@ import com.ksmartech.holiday.service.HolidayService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -23,47 +20,56 @@ public class HolidayController {
     @Autowired
     HolidayService holidayService;
 
-    /*
-    @GetMapping(value = "/")
-    public String init(){
 
-        return "home.jsp";
+    @GetMapping(value = "/{empNo}")
+    public String init(Model model, @PathVariable String empNo){
+
+
+        model.addAttribute("holiCnt", holidayService.cntUsedHoli(empNo));
+        model.addAttribute("holiList",holidayService.holiList(empNo));
+
+        return "index.jsp";
     }
-*/
 
 
     // 휴가 내역 조회 기능
-    @GetMapping(value = "/holiday/detail/{empNo}")
-    public String DetailHolidayInfo(Model model, @PathVariable String empNo){
-        logger.debug("empNo : "+ empNo);
+    //@GetMapping(value = "/holiday/detail/{empNo}")
+    @GetMapping(value = "/detailHolidays")
+    public String DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
+        logger.debug("empNo : " + empNo);
 
 
-        ArrayList<DetailHolidayDto> result = holidayService.empInfo(empNo);
-        logger.debug(result+"");
+        ArrayList<DetailHolidayDto> result = holidayService.holiList(empNo);
+        logger.debug(result + "");
 
         //model.addAttribute("list", result);
         //logger.debug("model : " + model.toString());
 
-        return "home.jsp";
+        return "index.jsp";
     }
 
 
     // 잔여일 조회 기능
     @GetMapping(value = "/holiday/{empNo}")
-    @ResponseBody
-    public HolidayDto HolidayInfo(@PathVariable String empNo) {
+
+    public String HolidayInfo(@PathVariable String empNo) {
         logger.debug(empNo);
 
-        HolidayDto result = holidayService.getEmpInfo(empNo);
+        Model model = null;
 
-        return result;
+        HolidayDto result = holidayService.cntUsedHoli(empNo);
+        model.addAttribute("empInfo", result);
+
+        logger.debug("model : " + model.toString());
+
+        return "home.jsp";
     }
 
 
     // 휴가 신청 기능
     @PostMapping(value = "/holiday")
     @ResponseBody
-    public ResponseModel ApplyHoli(@RequestBody ApplyHoliDto applyHoliDto){
+    public ResponseModel ApplyHoli(@RequestBody ApplyHoliDto applyHoliDto) {
 
         ResponseModel result = holidayService.applyHoli(applyHoliDto);
 
@@ -74,7 +80,7 @@ public class HolidayController {
     // 결재 조회 기능
     @GetMapping(value = "/team/holiday/{team}/{empNo}")
     @ResponseBody
-    public ResponseModel CheckApproval(@PathVariable String team, @PathVariable String empNo){
+    public ResponseModel CheckApproval(@PathVariable String team, @PathVariable String empNo) {
         logger.debug(empNo);
 
         ResponseModel result = holidayService.checkApproval(team, empNo);
@@ -86,7 +92,7 @@ public class HolidayController {
     // 승인 및 반려 기능
     @PutMapping(value = "/team/holiday")
     @ResponseBody
-    public ResponseModel ApprovalHoli(@RequestBody HoliParamDto holiParamDto){
+    public ResponseModel ApprovalHoli(@RequestBody HoliParamDto holiParamDto) {
 
         ResponseModel result = holidayService.approvalHoli(holiParamDto);
 
@@ -97,7 +103,7 @@ public class HolidayController {
     // 휴가 신청 취소 기능
     @DeleteMapping(value = "/holiday")
     @ResponseBody
-    public ResponseModel CancelHoli(@RequestBody HoliParamDto holiParamDto){
+    public ResponseModel CancelHoli(@RequestBody HoliParamDto holiParamDto) {
         ResponseModel result = holidayService.cancelHoli(holiParamDto);
         return result;
     }
@@ -105,7 +111,7 @@ public class HolidayController {
     // 스케줄러 동작 확인
     @GetMapping(value = "/batch")
     @ResponseBody
-    public String test(){
+    public String test() {
         holidayService.scheduleTest();
 
         return "ok";

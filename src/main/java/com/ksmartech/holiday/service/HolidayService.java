@@ -6,7 +6,6 @@ import com.ksmartech.holiday.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +24,14 @@ public class HolidayService {
     EmployeeMapper employeeMapper;
 
     // 휴가 내역조회
-    public ArrayList<DetailHolidayDto> empInfo(String empNo) {
-        ArrayList<DetailHolidayDto> result = holidayMapper.getInfo(empNo);
+    public ArrayList<DetailHolidayDto> holiList(String empNo) {
+        ArrayList<DetailHolidayDto> result = holidayMapper.getHoliList(empNo);
         return result;
     }
 
     // 잔여일 조회
-    public HolidayDto getEmpInfo(String empNo) {
-        HolidayDto result = holidayMapper.getEmpInfo(empNo);
+    public HolidayDto cntUsedHoli(String empNo) {
+        HolidayDto result = holidayMapper.cntUsedHoli(empNo);
         return result;
     }
 
