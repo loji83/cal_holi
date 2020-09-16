@@ -1,7 +1,6 @@
 package com.ksmartech.holiday.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.ksmartech.holiday.model.*;
 import com.ksmartech.holiday.service.HolidayService;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
@@ -26,7 +24,7 @@ public class HolidayController {
 
 
     @GetMapping(value = "/{empNo}")
-    public String init(Model model, @PathVariable String empNo){
+    public String init(Model model, @PathVariable("empNo") String empNo){
 
         HolidayDto holidayDto = holidayService.cntUsedHoli(empNo);
 
@@ -36,8 +34,10 @@ public class HolidayController {
         logger.debug("HERE!! : "+ holiJson);
 
         model.addAttribute("holiCnt", holiJson);
+        model.addAttribute("empNo", empNo);
         // model.addAttribute("holiList",holidayService.holiList(empNo));
         logger.debug(model.toString());
+
 
         return "index.jsp";
     }
@@ -46,23 +46,22 @@ public class HolidayController {
     // 휴가 내역 조회 기능
     //@GetMapping(value = "/holiday/detail/{empNo}")
     @GetMapping(value = "/detailHolidays/{empNo}")
-    public ArrayList<DetailHolidayDto> DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
+    public String DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
         logger.debug("empNo : " + empNo);
 
 
         ArrayList<DetailHolidayDto> result = holidayService.holiList(empNo);
         logger.debug(result + "");
 
-        //model.addAttribute("list", result);
-        //logger.debug("model : " + model.toString());
+        model.addAttribute("list", result);
+        logger.debug("model : " + model.toString());
 
-        return result;
+        return "index.jsp";
     }
 
 
     // 잔여일 조회 기능
     @GetMapping(value = "/holiday/{empNo}")
-
     public HolidayDto HolidayInfo(@PathVariable String empNo) {
         logger.debug(empNo);
 

@@ -22,6 +22,7 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 </head>
+
 <body>
 <nav class="navbar navbar-expand-sm fixed-top navbar-light" style="background-color: #dcdcdc">
     <div class="navbar-header">
@@ -78,6 +79,11 @@
                         <td>2</td>
                         <td>13</td>
                     </tr>
+                    <tr>
+                        <td>${holiday.totalDays}</td>
+                        <td>${holiday.cntUsed}</td>
+                        <td>${holiday.remain}</td>
+                    </tr>
                     </tbody>
                 </table>
                 <c:forEach items="${holiCnt}" var="holi">
@@ -124,9 +130,9 @@
             </div>
             <hr>
             <div class="container">
-                <%= request.getAttribute("holiCnt")%>
+
             </div>
-            <p>here : ${holiCnt}</p>
+
         </main>
     </div>
 </div>
