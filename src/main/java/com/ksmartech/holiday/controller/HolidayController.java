@@ -28,15 +28,10 @@ public class HolidayController {
 
 
         HolidayDto holidayDto = holidayService.cntUsedHoli(empNo);
+        model.addAttribute("holiCnt", holidayService.cntUsedHoli(empNo));
 
-        Gson gson = new Gson();
-
-        String holiJson = gson.toJson(holidayDto);
-        logger.debug(holiJson);
-
-        model.addAttribute("holiCnt", holiJson);
         model.addAttribute("holiList",holidayService.holiList(empNo));
-        logger.debug(model.toString());
+        logger.debug("" + model);
 
         return "index.jsp";
     }

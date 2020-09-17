@@ -1,11 +1,14 @@
-<%@ page import="java.util.GregorianCalendar" %><%--
-  Created by IntelliJ IDEA.
+<%--
+Created by IntelliJ IDEA.
   User: KST
   Date: 2020-09-15
   Time: 오후 3:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%  %>
+
 <html>
 <head>
     <title>Holiday</title>
@@ -13,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +24,8 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 </head>
+
+<body>
 <nav class="navbar navbar-expand-sm fixed-top navbar-light" style="background-color: #dcdcdc">
     <div class="navbar-header">
         <a class="navbar-brand" href="#">
@@ -49,17 +54,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Approval</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">One more nav</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Another nav item</a>
-                </li>
             </ul>
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-            <h2>Holiday</h2><hr>
+            <h2>Holiday</h2>
+            <hr>
             <div class="table-responsive col-sm-6">
                 <table class="table table-bordered">
                     <thead>
@@ -67,13 +67,13 @@
                         <th>TotalDays</th>
                         <th>cntUsed</th>
                         <th>remain</th>
-                        </tr>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>15</td>
-                        <td>2</td>
-                        <td>13</td>
+                        <td><c:out value="${holiCnt.totalDays}"></c:out></td>
+                        <td><c:out value="${holiCnt.cntUsed}"></c:out></td>
+                        <td><c:out value="${holiCnt.remain}"></c:out></td>
                     </tr>
                     </tbody>
                 </table>
@@ -90,35 +90,16 @@
                         <th>종료일</th>
                         <th>기간</th>
                         <th>상태</th>
-                        <th> </th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>연차</td>
-                        <td>2020-08-14</td>
-                        <td>2020-08-15</td>
-                        <td>2</td>
-                        <td>사용</td>
-                        <td>
-                             <!--<button type="button" class="btn btn-primary">승인</button>  -->
-                            <button type="button" class="btn btn-danger">취소</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
             <hr>
             <div class="container">
-                <%= request.getAttribute("holiCnt")%>
+
             </div>
         </main>
     </div>

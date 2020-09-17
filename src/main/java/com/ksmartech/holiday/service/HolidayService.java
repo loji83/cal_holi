@@ -31,7 +31,11 @@ public class HolidayService {
 
     // 잔여일 조회
     public HolidayDto cntUsedHoli(String empNo) {
+
+        //logger.debug("empNo: " + empNo);
         HolidayDto result = holidayMapper.cntUsedHoli(empNo);
+
+       //logger.debug(result.toString());
         return result;
     }
 
