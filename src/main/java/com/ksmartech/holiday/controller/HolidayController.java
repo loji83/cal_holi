@@ -24,6 +24,7 @@ public class HolidayController {
     HolidayService holidayService;
 
 
+    // home화면
     @GetMapping(value = "/{empNo}")
     public String init(Model model, @PathVariable String empNo){
 
@@ -37,14 +38,28 @@ public class HolidayController {
         return "index.jsp";
     }
 
+    // 팀장의 결재 화면
+    @GetMapping(value = "/{team}/{empNo}")
+    public String Approval(Model model, @PathVariable String team, @PathVariable String empNo) {
+        logger.debug("empNo : "+empNo);
+        logger.debug("team : "+team);
+
+        ResponseModel result = holidayService.checkApproval(team, empNo);
+        logger.debug("!!!"+result.toString());
+        model.addAttribute("approvalList", result.getData());
+
+        logger.debug(""+model);
+        return "approval.jsp";
+    }
+
+
 
     // 휴가 내역 조회 기능
     @GetMapping(value = "/detailHolidays/{empNo}")
-    public ArrayList<DetailHolidayDto> DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
+    public List<DetailHolidayDto> DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
         logger.debug("empNo : " + empNo);
 
-
-        ArrayList<DetailHolidayDto> result = holidayService.holiList(empNo);
+        List<DetailHolidayDto> result = holidayService.holiList(empNo);
         logger.debug(result + "");
 
         return result;
@@ -57,12 +72,7 @@ public class HolidayController {
     public HolidayDto HolidayInfo(@PathVariable String empNo) {
         logger.debug(empNo);
 
-        Model model = null;
-
         HolidayDto result = holidayService.cntUsedHoli(empNo);
-        model.addAttribute("empInfo", result);
-
-        logger.debug("model : " + model.toString());
 
         return result;
     }

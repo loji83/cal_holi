@@ -1,8 +1,8 @@
 <%--
-Created by IntelliJ IDEA.
+  Created by IntelliJ IDEA.
   User: KST
-  Date: 2020-09-15
-  Time: 오후 3:05
+  Date: 2020-09-17
+  Time: 오후 2:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -37,10 +37,10 @@ Created by IntelliJ IDEA.
         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Applications</a>
+                    <a class="nav-link active" href="#">Applications<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
 
@@ -49,32 +49,13 @@ Created by IntelliJ IDEA.
                     <a class="nav-link" href="#">Approval</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">fff</a>
+                    <a class="nav-link" href="#">ffff</a>
                 </li>
             </ul>
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-            <h2>Holiday</h2>
-            <hr>
-            <div class="table-responsive col-sm-6">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>TotalDays</th>
-                        <th>cntUsed</th>
-                        <th>remain</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><c:out value="${holiCnt.totalDays}"></c:out></td>
-                        <td><c:out value="${holiCnt.cntUsed}"></c:out></td>
-                        <td><c:out value="${holiCnt.remain}"></c:out></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <h2>Approval</h2>
             <hr>
             <div class="table-responsive col-8">
                 <h3><br>holiday list</h3>
@@ -90,24 +71,30 @@ Created by IntelliJ IDEA.
                         <th></th>
                     </tr>
                     </thead>
-
                     <tbody>
-                    <c:forEach items="${holiList}" var="list">
-                    <tr>
-                        <td><c:out value="${list.holiNo}"></c:out></td>
-                        <td><c:out value="${list.holiType}"></c:out></td>
-                        <td><c:out value="${list.startDate}"></c:out></td>
-                        <td><c:out value="${list.endDate}"></c:out></td>
-                        <td><c:out value="${list.duration}"></c:out></td>
-                        <td><c:out value="${list.state}"></c:out></td>
-                        <td><button type="button" class="btn btn-danger" id="cancleButton" onclick="clickCancle()">취소</button></td>
-                    </tr>
+                    <c:forEach items="${approvalList}" var="list">
+                        <tr>
+                            <td><c:out value="${list.holiNo}"></c:out></td>
+                            <td><c:out value="${list.holiType}"></c:out></td>
+                            <td><c:out value="${list.startDate}"></c:out></td>
+                            <td><c:out value="${list.endDate}"></c:out></td>
+                            <td><c:out value="${list.duration}"></c:out></td>
+                            <td><c:out value="${list.state}"></c:out></td>
+                            <td>
+                            <button type="button" class="btn btn-primary" onclick="clickButton()">승인</button>
+                                <button type="button" class="btn btn-danger" onclick="clickButton()">반려</button>
+                            </td>
+                        </tr>
+
                     </c:forEach>
                     </tbody>
+
                 </table>
+                <c:forEach items="${approvalList}" var="appr">
+                    <p>${appr}</p>
+                </c:forEach>
+
             </div>
-            <hr>
-            <div id="replyarea"></div>
         </main>
     </div>
 </div>

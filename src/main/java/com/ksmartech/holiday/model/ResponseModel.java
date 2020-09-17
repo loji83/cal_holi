@@ -36,6 +36,7 @@ public class ResponseModel {
         return "ResponseModel{" +
                 "code='" + code + '\'' +
                 ", message='" + message + '\'' +
+                ", data=" + data +
                 '}';
     }
 }

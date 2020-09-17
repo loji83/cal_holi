@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Console;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -24,8 +25,8 @@ public class HolidayService {
     EmployeeMapper employeeMapper;
 
     // 휴가 내역조회
-    public ArrayList<DetailHolidayDto> holiList(String empNo) {
-        ArrayList<DetailHolidayDto> result = holidayMapper.getHoliList(empNo);
+    public List<DetailHolidayDto> holiList(String empNo) {
+        List<DetailHolidayDto> result = holidayMapper.getHoliList(empNo);
         return result;
     }
 

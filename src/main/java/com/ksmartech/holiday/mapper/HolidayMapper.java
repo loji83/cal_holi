@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface HolidayMapper {
 
-    ArrayList<DetailHolidayDto> getHoliList(String empNo);
+    List<DetailHolidayDto> getHoliList(String empNo);
 
     HolidayDto cntUsedHoli(String empNo);
 
