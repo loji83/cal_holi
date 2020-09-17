@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -26,9 +27,9 @@ public class HolidayController {
     @GetMapping(value = "/{empNo}")
     public String init(Model model, @PathVariable String empNo){
 
-
         HolidayDto holidayDto = holidayService.cntUsedHoli(empNo);
-        model.addAttribute("holiCnt", holidayService.cntUsedHoli(empNo));
+        model.addAttribute("holiCnt", holidayDto);
+
 
         model.addAttribute("holiList",holidayService.holiList(empNo));
         logger.debug("" + model);
@@ -38,26 +39,22 @@ public class HolidayController {
 
 
     // 휴가 내역 조회 기능
-    //@GetMapping(value = "/holiday/detail/{empNo}")
-    @GetMapping(value = "/detailHolidays")
-    public String DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
+    @GetMapping(value = "/detailHolidays/{empNo}")
+    public ArrayList<DetailHolidayDto> DetailHolidayInfo(Model model, @RequestBody /* @PathVariable*/ String empNo) {
         logger.debug("empNo : " + empNo);
 
 
         ArrayList<DetailHolidayDto> result = holidayService.holiList(empNo);
         logger.debug(result + "");
 
-        //model.addAttribute("list", result);
-        //logger.debug("model : " + model.toString());
-
-        return "index.jsp";
+        return result;
     }
 
 
     // 잔여일 조회 기능
     @GetMapping(value = "/holiday/{empNo}")
 
-    public String HolidayInfo(@PathVariable String empNo) {
+    public HolidayDto HolidayInfo(@PathVariable String empNo) {
         logger.debug(empNo);
 
         Model model = null;
@@ -67,7 +64,7 @@ public class HolidayController {
 
         logger.debug("model : " + model.toString());
 
-        return "home.jsp";
+        return result;
     }
 
 

@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.reflect.Array" %><%--
 Created by IntelliJ IDEA.
   User: KST
   Date: 2020-09-15
@@ -34,7 +35,9 @@ Created by IntelliJ IDEA.
         </a>
     </div>
 </nav>
-
+<%
+    //arrayList 받아로는거.. 뭘ㄹ까
+%>
 <div class="container-fluid">
     <div class="row">
         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
@@ -93,18 +96,32 @@ Created by IntelliJ IDEA.
                         <th></th>
                     </tr>
                     </thead>
+
                     <tbody>
+                    <c:forEach items="${holiList}" var="list">
+                    <tr>
+                        <td><c:out value="${list.holiNo}"></c:out></td>
+                        <td><c:out value="${list.holiType}"></c:out></td>
+                        <td><c:out value="${list.startDate}"></c:out></td>
+                        <td><c:out value="${list.endDate}"></c:out></td>
+                        <td><c:out value="${list.duration}"></c:out></td>
+                        <td><c:out value="${list.state}"></c:out></td>
+                        <td><button type="button" class="btn btn-danger" id="cancleButton" onclick="clickButton()">취소</button></td>
+                    </tr>
+
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
             <hr>
-            <div class="container">
-
-            </div>
         </main>
     </div>
 </div>
-
+<script language="JavaScript">
+    function clickButton(){
+        alert("취소되었습니다.")
+    }
+</script>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
