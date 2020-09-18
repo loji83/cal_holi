@@ -40,13 +40,13 @@
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Applications<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Applications</a>
                 </li>
             </ul>
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Approval</a>
+                    <a class="nav-link active" href="#">Approval<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">ffff</a>
@@ -62,7 +62,8 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>no.</th>
+                        <th>휴가번호</th>
+                        <th>사원번호</th>
                         <th>휴가유형</th>
                         <th>시작일</th>
                         <th>종료일</th>
@@ -75,30 +76,35 @@
                     <c:forEach items="${approvalList}" var="list">
                         <tr>
                             <td><c:out value="${list.holiNo}"></c:out></td>
+                            <td><c:out value="${list.empNo}"></c:out></td>
                             <td><c:out value="${list.holiType}"></c:out></td>
                             <td><c:out value="${list.startDate}"></c:out></td>
                             <td><c:out value="${list.endDate}"></c:out></td>
                             <td><c:out value="${list.duration}"></c:out></td>
                             <td><c:out value="${list.state}"></c:out></td>
                             <td>
-                            <button type="button" class="btn btn-primary" onclick="clickButton()">승인</button>
-                                <button type="button" class="btn btn-danger" onclick="clickButton()">반려</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="clickButton()">승인</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="clickButton()">반려</button>
                             </td>
                         </tr>
-
                     </c:forEach>
                     </tbody>
-
                 </table>
-                <c:forEach items="${approvalList}" var="appr">
-                    <p>${appr}</p>
-                </c:forEach>
 
             </div>
         </main>
     </div>
 </div>
-
+<script>
+    function clickButton() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("클릭 버튼");
+            }
+        };
+    }
+</script>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
