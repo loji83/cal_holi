@@ -17,9 +17,20 @@ Created by IntelliJ IDEA.
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+
+    <!-- datepicker-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css"/>
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
 </head>
 
 <body>
@@ -55,10 +66,9 @@ Created by IntelliJ IDEA.
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-            <h2>Holiday</h2>
-            <hr>
             <div class="table-responsive col-sm-6">
                 <table class="table table-bordered">
+                    <h3>Holiday</h3>
                     <thead>
                     <tr>
                         <th>TotalDays</th>
@@ -75,9 +85,9 @@ Created by IntelliJ IDEA.
                     </tbody>
                 </table>
             </div>
-            <hr>
             <div class="table-responsive col-8">
-                <h3><br>holiday list</h3>
+                <hr>
+                <h3>holiday list</h3>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -93,31 +103,112 @@ Created by IntelliJ IDEA.
 
                     <tbody>
                     <c:forEach items="${holiList}" var="list">
-                    <tr>
-                        <td><c:out value="${list.holiNo}"></c:out></td>
-                        <td><c:out value="${list.holiType}"></c:out></td>
-                        <td><c:out value="${list.startDate}"></c:out></td>
-                        <td><c:out value="${list.endDate}"></c:out></td>
-                        <td><c:out value="${list.duration}"></c:out></td>
-                        <td><c:out value="${list.state}"></c:out></td>
-                        <td><button type="button" class="btn btn-danger" id="cancleButton" onclick="clickCancle()">취소</button></td>
-                    </tr>
+                        <tr>
+                            <td><c:out value="${list.holiNo}"></c:out></td>
+                            <td><c:out value="${list.holiType}"></c:out></td>
+                            <td><c:out value="${list.startDate}"></c:out></td>
+                            <td><c:out value="${list.endDate}"></c:out></td>
+                            <td><c:out value="${list.duration}"></c:out></td>
+                            <td><c:out value="${list.state}"></c:out></td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" id="cancleButton"
+                                        onclick="clickCancle()">취소
+                                </button>
+                            </td>
+                        </tr>
                     </c:forEach>
                     </tbody>
                 </table>
+                <hr>
             </div>
-            <hr>
-            <div id="replyarea"></div>
+            <h3>application</h3>
+            <div class="row">
+                <div class='col-md-2 col-xs-4'>
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1">
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-2 col-xs-4'>
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2">
+                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-2 col-xs-4'>
+                    <select class="form-control">
+                        <option>반차</option>
+                        <option>휴가</option>
+                    </select>
+                </div>
+                <div class='col-sm-2'>
+                    <button class="btn btn-primary" id="applyButton" onclick="applyButton()">신청</button>
+                </div>
+            </div>
         </main>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'L',
+            title: "휴가 시작일",
+            daysOfWeekDisabled: [0, 6],
+            timepicker: false,
+            minDate: 0
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'L',
+            useCurrent: false,
+            daysOfWeekDisabled: [0, 6],
+            timepicker: false
+        });
+
+        $("#datetimepicker1").on("change.datetimepicker", function (e) {
+            $('#datetimepicker2').datetimepicker('minDate', e.date);
+        });
+
+        $("#datetimepicker2").on("change.datetimepicker", function (e) {
+            $('#datetimepicker1').datetimepicker('maxDate', e.date);
+        });
+
+    });
+</script>
+
+<script>
+    function clickCancle() {
+
+        var holiParam = new Object();
+
+        $.ajax({
+
+        });
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("클릭 버튼");
+            }
+        };
+    }
+</script>
+<script>
+    function applyButton() {
+        alert("신청~")
+    }
+</script>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
