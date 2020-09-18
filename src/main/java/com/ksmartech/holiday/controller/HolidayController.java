@@ -1,7 +1,5 @@
 package com.ksmartech.holiday.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.ksmartech.holiday.model.*;
 import com.ksmartech.holiday.service.HolidayService;
 import org.slf4j.Logger;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
