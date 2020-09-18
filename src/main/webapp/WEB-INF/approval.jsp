@@ -57,7 +57,7 @@
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
             <h2>Approval</h2>
             <hr>
-            <div class="table-responsive col-8">
+            <div class="table-responsive col-8" id="approvalTable">
                 <h3><br>holiday list</h3>
                 <table class="table table-striped">
                     <thead>
