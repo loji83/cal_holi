@@ -45,7 +45,7 @@ Created by IntelliJ IDEA.
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+        <nav class="col-sm-2 col-md-2 hidden-xs-down bg-faded sidebar">
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a class="nav-link active" href="#">Home<span class="sr-only">(current)</span></a>
@@ -88,7 +88,7 @@ Created by IntelliJ IDEA.
             <div class="table-responsive col-8">
                 <hr>
                 <h3>holiday list</h3>
-                <table class="table table-striped">
+                <table class="table table-striped" id="holidayListTable">
                     <thead>
                     <tr>
                         <th>no.</th>
@@ -111,9 +111,7 @@ Created by IntelliJ IDEA.
                             <td><c:out value="${list.duration}"></c:out></td>
                             <td><c:out value="${list.state}"></c:out></td>
                             <td>
-                                <button type="button" class="btn btn-danger btn-sm" id="cancleButton"
-                                        onclick="clickCancle()">취소
-                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="requestCancel(this)" id="${list.holiNo}">취소</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -121,55 +119,58 @@ Created by IntelliJ IDEA.
                 </table>
                 <hr>
             </div>
-            <h3>application</h3>
-            <div class="row">
-                <div class='col-md-2 col-xs-4'>
-                    <div class="form-group">
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1">
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            <div class="container-fluid">
+                <h3>application</h3>
+                <div class="row">
+                    <div class='col-md-2 col-xs-4'>
+                        <div class="form-group">
+                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1">
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class='col-md-2 col-xs-4'>
-                    <div class="form-group">
-                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2">
-                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class='col-md-2 col-xs-4'>
+                        <div class="form-group">
+                            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2">
+                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class='col-md-2 col-xs-4'>
-                    <select class="form-control">
-                        <option>반차</option>
-                        <option>휴가</option>
-                    </select>
-                </div>
-                <div class='col-sm-2'>
-                    <button class="btn btn-primary" id="applyButton" onclick="applyButton()">신청</button>
+                    <div class='col-md-2 col-xs-4'>
+                        <select class="form-control">
+                            <option>반차</option>
+                            <option>휴가</option>
+                        </select>
+                    </div>
+                    <div class='col-sm-2'>
+                        <button class="btn btn-primary" id="applyButton" onclick="applyButton()">신청</button>
+                    </div>
                 </div>
             </div>
+
         </main>
     </div>
 </div>
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker({
-            format: 'L',
-            title: "휴가 시작일",
+            format: 'YYYY/MM/DD',
             daysOfWeekDisabled: [0, 6],
             timepicker: false,
             minDate: 0
         });
         $('#datetimepicker2').datetimepicker({
-            format: 'L',
+            format: 'YYYY/MM/DD',
             useCurrent: false,
             daysOfWeekDisabled: [0, 6],
-            timepicker: false
+            timepicker: false,
+            minDate: 0
         });
 
         $("#datetimepicker1").on("change.datetimepicker", function (e) {
@@ -184,27 +185,25 @@ Created by IntelliJ IDEA.
 </script>
 
 <script>
-    function clickCancle() {
+    function requestCancel(data){
+        console.log(data.id);
+        alert("cancel")
 
-        var holiParam = new Object();
-
-        $.ajax({
-
-        });
-
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                alert("클릭 버튼");
-            }
-        };
     }
-</script>
-<script>
     function applyButton() {
         alert("신청~")
     }
+    function reloadTable(${holiList}){
+
+        var table = $('#holidayListTable');
+        table.find("tbody tr").remove();
+
+    }
 </script>
+
+
+
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
