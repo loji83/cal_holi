@@ -100,7 +100,6 @@ Created by IntelliJ IDEA.
                         <th></th>
                     </tr>
                     </thead>
-
                     <tbody id="originTbody">
                     <c:forEach items="${holiList}" var="list">
                         <tr>
@@ -110,9 +109,7 @@ Created by IntelliJ IDEA.
                             <td><c:out value="${list.endDate}"></c:out></td>
                             <td><c:out value="${list.duration}"></c:out></td>
                             <td><c:out value="${list.state}"></c:out></td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="requestCancel(this)" id="${list.holiNo}">취소</button>
-                            </td>
+                            <td><input type="button" class="btn btn-danger btn-sm" id="cancelButton" value="취소"></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -157,30 +154,26 @@ Created by IntelliJ IDEA.
         </main>
     </div>
 </div>
-
 <script>
-    function requestCancel(data){
-        console.log(data.id);
-        alert("cancel")
+    $(document).ready(function(){
 
-    }
+        var holiList = ;
+        console.log('${holiList.get(0).holiNo}');
+        console.log('${holiList}');
 
-    function applyButton() {
-        alert("신청~")
-    }
+        for (list.)
+            var html = holitlist.get(i).holine + "<td>"
+        $("#cancelButton").click(function () {
 
-    function reloadTable(${holiList}){
-
-        var table = $('#holidayListTable tbody');
-        table.find("tbody tr").remove();
-
-        table.append("<tr><td>"+ ${holiList.holiNo} +"<tr><td>");
-
-        // table.load(window.location.href + "holidayListTable");
-
-
-    }
+            $.ajax({
+                url : "/" ,
+                type : 'DELETE',
+                success : alert("cancel");
+            })
+        });
+    });
 </script>
+
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker({
@@ -209,13 +202,12 @@ Created by IntelliJ IDEA.
 </script>
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
+<!-- Bootstrap core JavaScript================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
