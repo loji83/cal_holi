@@ -1,5 +1,6 @@
 package com.ksmartech.holiday.controller;
 
+import com.google.gson.Gson;
 import com.ksmartech.holiday.model.*;
 import com.ksmartech.holiday.service.HolidayService;
 import org.slf4j.Logger;
@@ -27,13 +28,20 @@ public class HolidayController {
 
         // 휴가 정보
         HolidayDto holidayDto = holidayService.cntUsedHoli(empNo);
-        model.addAttribute("holiCnt", holidayDto);
-
         // 휴가 list
-        model.addAttribute("holiList",holidayService.holiList(empNo));
-        logger.debug("" + model);
+        List<DetailHolidayDto> detailHolidayDtos = holidayService.holiList(empNo);
 
-        //신청
+        //json으로 전환
+        Gson gson = new Gson();
+        String jsonHoliCnt = gson.toJson(holidayDto);
+        String jsonHoliList = gson.toJson(detailHolidayDtos);
+        logger.debug("cnt : "+jsonHoliCnt);
+        logger.debug("list : "+jsonHoliList);
+
+
+        model.addAttribute("holiCnt", jsonHoliCnt);
+        model.addAttribute("holiList", jsonHoliList);
+        logger.debug("model : " + model);
 
         return "index.jsp";
     }
