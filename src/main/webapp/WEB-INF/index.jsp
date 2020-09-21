@@ -145,6 +145,7 @@ Created by IntelliJ IDEA.
     </div>
     <script>
         var list = "";
+
         $(document).ready(function(){
             list = ${holiList};
             reloadListTable();
@@ -153,22 +154,47 @@ Created by IntelliJ IDEA.
 
         function cancelButton(holiNo){
 
-            console.log(list[holiNo].state);
             var holidayState = list[holiNo].state;
-            var used = '사용';
-            $.ajax({
-                url : "localhost:8080/cancelHoliday",
-                success: function (){
-                    removeListTable();
-                    reloadListTable();
-                },
-                error: function (holidayState) {
-                    if(holidayState === used){
-                        alert("이미 사용한 휴가는 취소할 수 없음");
-                    }
-                }
-            });
+            var holidayEmpNo = list[holiNo].empNo;
+            var holidayNo = list[holiNo].holiNo;
 
+            if(holidayState === '사용'){
+                alert("이미 사용한 휴가는 취소할 수 없음");
+            }
+
+            else{
+                if(confirm("취소하시겠습니까?")==true){
+                    console.log(holidayState +"/"+ holidayEmpNo +"/"+ holidayNo);
+
+                    $.ajax({
+                        url : "http://localhost:8080/cancelHoliday",
+                        type : "DELETE",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        data : JSON.stringify(
+                            {
+                                "empNo" : holidayEmpNo,
+                                "holiNo" : holidayNo
+                            }
+                        ),
+                        success: function (response){
+                            console.log(holidayState);
+                            console.log(holidayNo);
+
+                            if(response == 1){
+                                removeListTable();
+                                reloadListTable();
+                            }
+                        },
+                        error:  function () {
+                            console.log(holidayState);
+                            console.log(this.data);
+                        }
+                    });
+                }else {
+                    return ;
+                }
+            }
         }
 
         function removeListTable(){
