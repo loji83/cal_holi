@@ -88,7 +88,7 @@ Created by IntelliJ IDEA.
             <div class="table-responsive col-8">
                 <hr>
                 <h3>holiday list</h3>
-                <table class="table table-striped" id="holidayListTable">
+                <table class="table table-striped" id="originTable">
                     <thead>
                     <tr>
                         <th>no.</th>
@@ -101,7 +101,7 @@ Created by IntelliJ IDEA.
                     </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="originTbody">
                     <c:forEach items="${holiList}" var="list">
                         <tr>
                             <td><c:out value="${list.holiNo}"></c:out></td>
@@ -157,6 +157,30 @@ Created by IntelliJ IDEA.
         </main>
     </div>
 </div>
+
+<script>
+    function requestCancel(data){
+        console.log(data.id);
+        alert("cancel")
+
+    }
+
+    function applyButton() {
+        alert("신청~")
+    }
+
+    function reloadTable(${holiList}){
+
+        var table = $('#holidayListTable tbody');
+        table.find("tbody tr").remove();
+
+        table.append("<tr><td>"+ ${holiList.holiNo} +"<tr><td>");
+
+        // table.load(window.location.href + "holidayListTable");
+
+
+    }
+</script>
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker({
@@ -183,26 +207,6 @@ Created by IntelliJ IDEA.
 
     });
 </script>
-
-<script>
-    function requestCancel(data){
-        console.log(data.id);
-        alert("cancel")
-
-    }
-    function applyButton() {
-        alert("신청~")
-    }
-    function reloadTable(${holiList}){
-
-        var table = $('#holidayListTable');
-        table.find("tbody tr").remove();
-
-    }
-</script>
-
-
-
 
 
 <!-- Bootstrap core JavaScript
