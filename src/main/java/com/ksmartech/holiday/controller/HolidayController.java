@@ -24,22 +24,23 @@ public class HolidayController {
 
     // home화면
     @GetMapping(value = "/{empNo}")
-    public String init(Model model, @PathVariable String empNo){
+    public String init(Model model, @PathVariable String empNo) {
 
         // 휴가 정보
         HolidayDto holidayDto = holidayService.cntUsedHoli(empNo);
+        logger.debug("dtoCnt : " + holidayDto);
+
         // 휴가 list
         List<DetailHolidayDto> detailHolidayDtos = holidayService.holiList(empNo);
+        logger.debug("dtoList : " + detailHolidayDtos);
+
 
         //json으로 전환
         Gson gson = new Gson();
-        String jsonHoliCnt = gson.toJson(holidayDto);
         String jsonHoliList = gson.toJson(detailHolidayDtos);
-        logger.debug("cnt : "+jsonHoliCnt);
-        logger.debug("list : "+jsonHoliList);
+        logger.debug("jsonList : " + jsonHoliList);
 
-
-        model.addAttribute("holiCnt", jsonHoliCnt);
+        model.addAttribute("holiCnt", holidayDto);
         model.addAttribute("holiList", jsonHoliList);
         logger.debug("model : " + model);
 

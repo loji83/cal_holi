@@ -101,17 +101,7 @@ Created by IntelliJ IDEA.
                     </tr>
                     </thead>
                     <tbody id="originTbody">
-                    <c:forEach items="${holiList}" var="list">
-                        <tr>
-                            <td><c:out value="${list.holiNo}"></c:out></td>
-                            <td><c:out value="${list.holiType}"></c:out></td>
-                            <td><c:out value="${list.startDate}"></c:out></td>
-                            <td><c:out value="${list.endDate}"></c:out></td>
-                            <td><c:out value="${list.duration}"></c:out></td>
-                            <td><c:out value="${list.state}"></c:out></td>
-                            <td><input type="button" class="btn btn-danger btn-sm" id="cancelButton" value="취소"></td>
-                        </tr>
-                    </c:forEach>
+
                     </tbody>
                 </table>
                 <hr>
@@ -153,26 +143,43 @@ Created by IntelliJ IDEA.
 
         </main>
     </div>
-</div>
-<script>
-    $(document).ready(function(){
+    <script>
+        $(document).ready(function(){
+            var list = ${holiList};
+            console.log(list);
+            var html = "";
 
-        var holiList = ;
-        console.log('${holiList.get(0).holiNo}');
-        console.log('${holiList}');
+            for(var i=0; i < list.length; i++){
+                var holi = list[i];
+                html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton()"></td></tr>';
 
-        for (list.)
-            var html = holitlist.get(i).holine + "<td>"
-        $("#cancelButton").click(function () {
+            }
+            $('#originTbody').html(html);
 
-            $.ajax({
-                url : "/" ,
-                type : 'DELETE',
-                success : alert("cancel");
-            })
         });
-    });
-</script>
+
+        function cancelButton(id){
+            alert("click" + id);
+        }
+
+        function reloadListTable(){
+
+            $('#originTbody').empty();
+
+            var list = ${holiList};
+            console.log(list);
+            var html = "";
+
+            for(var i=0; i < list.length; i++){
+                var holi = list[i];
+
+                html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton()"></td></tr>';
+
+            }
+            $('#originTbody').html(html);
+        }
+    </script>
+</div>
 
 <script type="text/javascript">
     $(function () {
