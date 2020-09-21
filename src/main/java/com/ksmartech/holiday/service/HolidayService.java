@@ -150,6 +150,7 @@ public class HolidayService {
         } else {
             responseModel.setCode("0001");
             responseModel.setMessage("No emp");
+
         }
 
         logger.debug(responseModel.toString());

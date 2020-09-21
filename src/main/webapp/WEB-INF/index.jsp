@@ -144,14 +144,30 @@ Created by IntelliJ IDEA.
         </main>
     </div>
     <script>
+        var list = "";
         $(document).ready(function(){
-
+            list = ${holiList};
             reloadListTable();
+
         });
 
         function cancelButton(holiNo){
-            alert(holiNo + "click");
 
+            console.log(list[holiNo].state);
+            var holidayState = list[holiNo].state;
+            var used = '사용';
+            $.ajax({
+                url : "localhost:8080/cancelHoliday",
+                success: function (){
+                    removeListTable();
+                    reloadListTable();
+                },
+                error: function (holidayState) {
+                    if(holidayState === used){
+                        alert("이미 사용한 휴가는 취소할 수 없음");
+                    }
+                }
+            });
 
         }
 
@@ -161,7 +177,6 @@ Created by IntelliJ IDEA.
 
         function reloadListTable(){
 
-            var list = ${holiList};
             console.log(list);
             var html = "";
 
@@ -170,7 +185,7 @@ Created by IntelliJ IDEA.
 
                 html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state
                     + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton('
-                    + holi.holiNo
+                    + i
                     +')"></td></tr>';
 
             }
