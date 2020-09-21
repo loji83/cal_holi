@@ -145,27 +145,22 @@ Created by IntelliJ IDEA.
     </div>
     <script>
         $(document).ready(function(){
-            var list = ${holiList};
-            console.log(list);
-            var html = "";
 
-            for(var i=0; i < list.length; i++){
-                var holi = list[i];
-                html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton()"></td></tr>';
-
-            }
-            $('#originTbody').html(html);
-
+            reloadListTable();
         });
 
-        function cancelButton(id){
-            alert("click" + id);
+        function cancelButton(holiNo){
+            alert(holiNo + "click");
+
+
+        }
+
+        function removeListTable(){
+            $('#originTbody').empty();
         }
 
         function reloadListTable(){
 
-            $('#originTbody').empty();
-
             var list = ${holiList};
             console.log(list);
             var html = "";
@@ -173,7 +168,10 @@ Created by IntelliJ IDEA.
             for(var i=0; i < list.length; i++){
                 var holi = list[i];
 
-                html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton()"></td></tr>';
+                html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state
+                    + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton('
+                    + holi.holiNo
+                    +')"></td></tr>';
 
             }
             $('#originTbody').html(html);
