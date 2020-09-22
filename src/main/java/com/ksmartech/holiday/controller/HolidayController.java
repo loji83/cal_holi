@@ -115,7 +115,7 @@ public class HolidayController {
 
 
     // 승인 및 반려 기능
-    @PutMapping(value = "/team/holiday")
+    @PutMapping(value = "/approveAndReject")
     @ResponseBody
     public ResponseModel ApprovalHoli(@RequestBody HoliParamDto holiParamDto) {
 

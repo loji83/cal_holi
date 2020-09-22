@@ -147,6 +147,9 @@ Created by IntelliJ IDEA.
         if(holidayState === '사용') {
             alert("이미 사용한 휴가는 취소할 수 없음");
         }
+        else if(holidayState === '반려'){
+            alert("반려 처리된 휴가는 취소할 수 없음");
+        }
         else{
             if(confirm("취소하시겠습니까?")==true){
 

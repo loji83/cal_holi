@@ -66,7 +66,16 @@
                 <h3><br>holiday list</h3>
                 <table class="table table-striped" id="approvalTable">
                     <thead>
-                        <tr><th>휴가번호</th><th>사원번호</th><th>휴가유형</th><th>시작일</th><th>종료일</th><th>기간</th><th>상태</th><th></th></tr>
+                    <tr>
+                        <th>no.</th>
+                        <th>사원번호</th>
+                        <th>휴가유형</th>
+                        <th>시작일</th>
+                        <th>종료일</th>
+                        <th>기간</th>
+                        <th>상태</th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
                     </tbody>
@@ -79,39 +88,115 @@
 <script>
     var list = "";
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         list = ${approvalList};
         reloadListTable();
     });
 
-    function reloadListTable(){
+    function reloadListTable() {
 
         console.log(list);
 
         var html = "";
 
-        for(var i=0; i < list.length; i++){
+        for (var i = 0; i < list.length; i++) {
             var holi = list[i];
 
             html += '<tr>';
 
-            html += '<td>' + (i+1) +'</td>';
+            html += '<td>' + (i + 1) + '</td>';
             html += '<td>' + holi.empNo + '</td>';
             html += '<td>' + holi.holiType + '</td>';
             html += '<td>' + holi.startDate + '</td>';
             html += '<td>' + holi.endDate + '</td>';
             html += '<td>' + holi.duration + '</td>';
             html += '<td>' + holi.state + '</td>';
-            html += '<td><input type="button" class="btn btn-primary btn-sm" value="승인" onclick="cancelButton(' + i +')">' +
-                    '<input type="button" class="btn btn-danger btn-sm" value="반려" onclick="cancelButton(' + i +')"></td>';
+            html += '<td><input type="button" class="btn btn-primary btn-sm" value="승인" onclick="approvalButton(' + i + ')">' +
+                '<input type="button" class="btn btn-danger btn-sm" value="반려" onclick="rejectButton(' + i + ')"></td>';
 
             html += '</tr>';
         }
         $('#approvalTable > tbody').append(html);
     }
 
-    function clickButton() {
+    function approvalButton(holiNo) {
 
+        var holidayEmpNo = list[holiNo].empNo;
+        var holidayNo = list[holiNo].holiNo;
+        if (confirm("승인하시겠습니까?") == true) {
+            $.ajax({
+                url: "http://localhost:8080/approveAndReject",
+                type: "PUT",
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                data: JSON.stringify(
+                    {
+                        "empNo": holidayEmpNo,
+                        "holiNo": holidayNo,
+                        "state": '승인',
+                    }
+                ),
+                success: function (response) {
+
+                    console.log("response type : " + typeof response);
+
+                    var result = JSON.parse(response);
+                    console.log("result : " + result);
+                    console.log("result.code : " + result.code);
+                    console.log("Type of result.code : " + typeof result.code);
+
+                    if (result.code === "0000") {
+                        console.log("refresh");
+                        alert("승인되었습니다.")
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert("오류");
+                    console.log("오류 : " + Error);
+                }
+            });
+        }
+    }
+
+    function rejectButton(holiNo) {
+
+        var holidayEmpNo = list[holiNo].empNo;
+        var holidayNo = list[holiNo].holiNo;
+        if (confirm("반려처리 하시겠습니까?") == true) {
+
+            $.ajax({
+                url: "http://localhost:8080/approveAndReject",
+                type: "PUT",
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                data: JSON.stringify(
+                    {
+                        "empNo": holidayEmpNo,
+                        "holiNo": holidayNo,
+                        "state": '반려',
+                    }
+                ),
+                success: function (response) {
+
+                    console.log("response type : " + typeof response);
+
+                    var result = JSON.parse(response);
+                    console.log("result : " + result);
+                    console.log("result.code : " + result.code);
+                    console.log("Type of result.code : " + typeof result.code);
+
+                    if (result.code === "0000") {
+                        alert("반려되었습니다.")
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert("오류");
+                    console.log("오류 : " + Error);
+                }
+            });
+        }
     }
 </script>
 </body>
