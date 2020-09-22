@@ -23,8 +23,7 @@ Created by IntelliJ IDEA.
     <!-- datepicker-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css"/>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css"/>
@@ -66,8 +65,8 @@ Created by IntelliJ IDEA.
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-            <div class="table-responsive col-sm-6">
-                <table class="table table-bordered">
+            <div class="table-responsive col-sm-8">
+                <table class="table table-bordered col-md-8">
                     <h3>Holiday</h3>
                     <thead>
                         <tr><th>TotalDays</th><th>cntUsed</th><th>remain</th></tr>
@@ -79,20 +78,7 @@ Created by IntelliJ IDEA.
                         <td><c:out value="${holiCnt.remain}"></c:out></td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
-
-            <div class="table-responsive col-8">
-                <hr>
-                <h3>holiday list</h3>
-                <table class="table table-striped" id="originTable">
-                    <thead>
-                        <tr><th>no.</th><th>휴가유형</th><th>시작일</th><th>종료일</th><th>기간</th><th>상태</th><th></th></tr>
-                    </thead>
-                    <tbody id="originTbody">
-                    </tbody>
-                </table>
-                <hr>
+                </table><hr>
             </div>
 
             <div class="container-fluid">
@@ -120,8 +106,8 @@ Created by IntelliJ IDEA.
                     </div>
                     <div class='col-md-2 col-xs-4'>
                         <select class="form-control" id="selectType">
-                            <option id="halfDayType">반차</option>
                             <option id="allDayType">휴가</option>
+                            <option id="halfDayType">반차</option>
                         </select>
                     </div>
                     <div class='col-sm-2'>
@@ -130,125 +116,51 @@ Created by IntelliJ IDEA.
                 </div>
             </div>
 
+            <div class="table-responsive col-8">
+                <hr>
+                <h3>holiday list</h3>
+                <table class="table table-striped" id="originTable">
+                    <thead><tr><th>no.</th><th>휴가유형</th><th>시작일</th><th>종료일</th><th>기간</th><th>상태</th><th></th></tr></thead>
+                    <tbody></tbody>
+                </table>
+                <hr>
+            </div>
+
         </main>
     </div>
-    <script>
-        var list = "";
+</div>
 
-        $(document).ready(function(){
-            list = ${holiList};
-            reloadListTable();
-        });
+<script>
+    var list = "";
 
-        function cancelButton(holiNo){
+    $(document).ready(function(){
+        list = ${holiList};
+        loadListTable();
+    });
 
-            var holidayState = list[holiNo].state;
-            var holidayEmpNo = list[holiNo].empNo;
-            var holidayNo = list[holiNo].holiNo;
+    function cancelButton(holiNo){
 
-            if(holidayState === '사용') {
-                alert("이미 사용한 휴가는 취소할 수 없음");
-            }
-            else{
-                if(confirm("취소하시겠습니까?")==true){
-                    console.log(holidayState +"/"+ holidayEmpNo +"/"+ holidayNo);
+        var holidayState = list[holiNo].state;
+        var holidayEmpNo = list[holiNo].empNo;
+        var holidayNo = list[holiNo].holiNo;
 
-                    $.ajax({
-                        url : "http://localhost:8080/cancelHoliday",
-                        type : "DELETE",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "text",
-                        data : JSON.stringify(
-                            {
-                                "empNo" : holidayEmpNo,
-                                "holiNo" : holidayNo
-                            }
-                        ),
-                        success: function (response){
-
-                            console.log("response type : "+typeof response);
-
-                            var result = JSON.parse(response);
-                            console.log("result : " + result);
-                            console.log("result.code : " + result.code);
-                            console.log("Type of result.code : " + typeof result.code);
-
-                            if(result.code === "0000"){
-                                console.log("refresh");
-                                removeListTable();
-                                reloadListTable();
-                            }
-                        },
-                        error:  function () {
-                            console.log(Error);
-                        }
-                    });
-                }else {
-                    return ;
-                }
-            }
+        if(holidayState === '사용') {
+            alert("이미 사용한 휴가는 취소할 수 없음");
         }
+        else{
+            if(confirm("취소하시겠습니까?")==true){
 
-        function removeListTable(){
-            console.log("clear");
-            //$('#originTbody').empty();
-            $('#originTbody').html('');
-        }
+                console.log(holidayState +"/"+ holidayEmpNo +"/"+ holidayNo);
 
-        function reloadListTable(){
-
-            console.log(list);
-            var html = "";
-
-            for(var i=0; i < list.length; i++){
-                var holi = list[i];
-
-                html += '<tr><td>' + (i+1) +'</td><td>' + holi.holiType + '</td><td>' + holi.startDate + '</td><td>' + holi.endDate + '</td><td>' + holi.duration + '</td><td>' + holi.state
-                    + '</td><td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton('
-                    + i
-                    +')"></td></tr>';
-
-            }
-            $('#originTbody').html(html);
-        }
-
-        function applyButton(){
-            var holidayEmpNo = '8';
-            var dateStart = Date.parse($('#datetimepicker1').val());
-            var dateEnd = Date.parse($('#datetimepicker2').val());
-            var dayOffType = $('#selectType').val();
-            var half = $('#halfDayType').val();
-
-            console.log(typeof dateStart);
-
-            // 반차 선택 오류
-            if ((dateStart !== dateEnd) && (dayOffType === half)){
-                alert('날짜를 다시 확인해주세요.');
-            }
-            else if((dateStart === dateEnd) && (dayOffType === half)){
-                if(confirm("반차를 신청하시겠습니까?")==true){
-                    callApply();
-                }
-                else return;
-            }
-            else {
-                if(confirm("휴가를 신청하시겠습니까?")==true){
-                    callApply();
-                }
-            }
-
-            function callApply(){
                 $.ajax({
-                    url : "http://localhost:8080/applyHoliday",
-                    type : "POST",
+                    url : "http://localhost:8080/cancelHoliday",
+                    type : "DELETE",
                     contentType: "application/json; charset=utf-8",
                     dataType: "text",
                     data : JSON.stringify(
                         {
-                            "startDate" : dateStart,
-                            "endDate" : dateEnd,
-                            "holiType" : dayOffType,
-                            "empNo" : holidayEmpNo
+                            "empNo" : holidayEmpNo,
+                            "holiNo" : holidayNo
                         }
                     ),
                     success: function (response){
@@ -261,22 +173,105 @@ Created by IntelliJ IDEA.
                         console.log("Type of result.code : " + typeof result.code);
 
                         if(result.code === "0000"){
-                            console.log("refresh");
-                            removeListTable();
-                            reloadListTable();
+                            alert("삭제되었습니다.");
+                            location.reload();
                         }
                     },
                     error:  function () {
-                        console.log("오류 : "+ Error);
+                        console.log(Error);
                     }
                 });
+            }else {
+                return ;
+            }
+
+        }
+    }
+
+    function loadListTable(){
+        console.log(list);
+
+        var html = "";
+
+        for(var i=0; i < list.length; i++){
+            var holi = list[i];
+
+            html += '<tr>';
+
+            html += '<td>' + (i+1) +'</td>';
+            html += '<td>' + holi.holiType + '</td>';
+            html += '<td>' + holi.startDate + '</td>';
+            html += '<td>' + holi.endDate + '</td>';
+            html += '<td>' + holi.duration + '</td>';
+            html += '<td>' + holi.state + '</td>';
+            html += '<td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton(' + i +')"></td>';
+
+            html += '</tr>';
+        }
+        $('#originTable > tbody').append(html);
+    }
+
+    function applyButton(){
+        var holidayEmpNo = '8';
+        var dateStart = Date.parse($('#datetimepicker1').val());
+        var dateEnd = Date.parse($('#datetimepicker2').val());
+        var dayOffType = $('#selectType').val();
+        var half = $('#halfDayType').val();
+
+        console.log(typeof dateStart);
+
+        if ((dateStart !== dateEnd) && (dayOffType === half)){
+            alert('날짜를 다시 확인해주세요.');
+        }
+        else if((dateStart === dateEnd) && (dayOffType === half)){
+            if(confirm("반차를 신청하시겠습니까?")==true){
+                callApply();
+            }
+            else return;
+        }
+        else {
+            if(confirm("휴가를 신청하시겠습니까?")==true){
+                callApply();
             }
         }
 
-    </script>
-</div>
+        // 휴가 신청 api 호출
+        function callApply(){
+            $.ajax({
+                url : "http://localhost:8080/applyHoliday",
+                type : "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                data : JSON.stringify(
+                    {
+                        "startDate" : dateStart,
+                        "endDate" : dateEnd,
+                        "holiType" : dayOffType,
+                        "empNo" : holidayEmpNo
+                    }
+                ),
+                success: function (response){
 
-<script type="text/javascript">
+                    console.log("response type : "+typeof response);
+
+                    var result = JSON.parse(response);
+                    console.log("result : " + result);
+                    console.log("result.code : " + result.code);
+                    console.log("Type of result.code : " + typeof result.code);
+
+                    if(result.code === "0000"){
+                        console.log("refresh");
+                        location.reload();
+                    }
+                },
+                error:  function () {
+                    console.log("오류 : "+ Error);
+                }
+            });
+        }
+    }
+
+    // datepicker
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY/MM/DD',
@@ -306,10 +301,10 @@ Created by IntelliJ IDEA.
 
 <!-- Bootstrap core JavaScript================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="js/bootstrap.min.js"></script>
+<%--<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>--%>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"--%>
+<%--        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"--%>
+<%--        crossorigin="anonymous"></script>--%>
+<%--<script src="js/bootstrap.min.js"></script>--%>
 </body>
 </html>

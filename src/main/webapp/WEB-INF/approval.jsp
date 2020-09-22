@@ -20,6 +20,11 @@
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css"/>
+
 </head>
 
 <body>
@@ -57,37 +62,13 @@
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
             <h2>Approval</h2>
             <hr>
-            <div class="table-responsive col-8" id="approvalTable">
+            <div class="table-responsive col-8">
                 <h3><br>holiday list</h3>
-                <table class="table table-striped">
+                <table class="table table-striped" id="approvalTable">
                     <thead>
-                    <tr>
-                        <th>휴가번호</th>
-                        <th>사원번호</th>
-                        <th>휴가유형</th>
-                        <th>시작일</th>
-                        <th>종료일</th>
-                        <th>기간</th>
-                        <th>상태</th>
-                        <th></th>
-                    </tr>
+                        <tr><th>휴가번호</th><th>사원번호</th><th>휴가유형</th><th>시작일</th><th>종료일</th><th>기간</th><th>상태</th><th></th></tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${approvalList}" var="list">
-                        <tr>
-                            <td><c:out value="${list.holiNo}"></c:out></td>
-                            <td><c:out value="${list.empNo}"></c:out></td>
-                            <td><c:out value="${list.holiType}"></c:out></td>
-                            <td><c:out value="${list.startDate}"></c:out></td>
-                            <td><c:out value="${list.endDate}"></c:out></td>
-                            <td><c:out value="${list.duration}"></c:out></td>
-                            <td><c:out value="${list.state}"></c:out></td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="clickButton()">승인</button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="clickButton()">반려</button>
-                            </td>
-                        </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
 
@@ -96,25 +77,42 @@
     </div>
 </div>
 <script>
+    var list = "";
+
+    $(document).ready(function(){
+        list = ${approvalList};
+        reloadListTable();
+    });
+
+    function reloadListTable(){
+
+        console.log(list);
+
+        var html = "";
+
+        for(var i=0; i < list.length; i++){
+            var holi = list[i];
+
+            html += '<tr>';
+
+            html += '<td>' + (i+1) +'</td>';
+            html += '<td>' + holi.empNo + '</td>';
+            html += '<td>' + holi.holiType + '</td>';
+            html += '<td>' + holi.startDate + '</td>';
+            html += '<td>' + holi.endDate + '</td>';
+            html += '<td>' + holi.duration + '</td>';
+            html += '<td>' + holi.state + '</td>';
+            html += '<td><input type="button" class="btn btn-primary btn-sm" value="승인" onclick="cancelButton(' + i +')">' +
+                    '<input type="button" class="btn btn-danger btn-sm" value="반려" onclick="cancelButton(' + i +')"></td>';
+
+            html += '</tr>';
+        }
+        $('#approvalTable > tbody').append(html);
+    }
+
     function clickButton() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                alert("클릭 버튼");
-            }
-        };
+
     }
 </script>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-        crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
