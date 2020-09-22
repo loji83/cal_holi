@@ -50,11 +50,11 @@ public class HolidayController {
     // 휴가 결재 화면
     @GetMapping(value = "/approval")
     public String Approval(Model model, @RequestParam String team, @RequestParam String empNo) {
-        logger.debug("empNo : "+ empNo);
-        logger.debug("team : "+ team);
+        logger.debug("empNo : " + empNo);
+        logger.debug("team : " + team);
 
         ResponseModel result = holidayService.checkApproval(team, empNo);
-        logger.debug("!!!"+result.toString());
+        logger.debug("!!!" + result.toString());
 
         //json으로 전환
         Gson gson = new Gson();
@@ -62,7 +62,7 @@ public class HolidayController {
         logger.debug("jsonApprovalList : " + jsonApprovalList);
 
         model.addAttribute("approvalList", jsonApprovalList);
-        logger.debug("!!!!"+model);
+        logger.debug("!!!!" + model);
         return "approval.jsp";
     }
 

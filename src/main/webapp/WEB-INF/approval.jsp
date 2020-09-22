@@ -45,16 +45,7 @@
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Applications</a>
-                </li>
-            </ul>
-
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
                     <a class="nav-link active" href="#">Approval<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ffff</a>
                 </li>
             </ul>
         </nav>
@@ -90,10 +81,10 @@
 
     $(document).ready(function () {
         list = ${approvalList};
-        reloadListTable();
+        loadListTable();
     });
 
-    function reloadListTable() {
+    function loadListTable() {
 
         console.log(list);
 
@@ -111,7 +102,7 @@
             html += '<td>' + holi.endDate + '</td>';
             html += '<td>' + holi.duration + '</td>';
             html += '<td>' + holi.state + '</td>';
-            html += '<td><input type="button" class="btn btn-primary btn-sm" value="승인" onclick="approvalButton(' + i + ')">' +
+            html += '<td><input type="button" class="btn btn-primary btn-sm" value="승인" onclick="approvalButton(' + i + ')">  ' +
                 '<input type="button" class="btn btn-danger btn-sm" value="반려" onclick="rejectButton(' + i + ')"></td>';
 
             html += '</tr>';

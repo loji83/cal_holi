@@ -23,7 +23,8 @@ Created by IntelliJ IDEA.
     <!-- datepicker-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css"/>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css"/>
@@ -50,16 +51,7 @@ Created by IntelliJ IDEA.
                     <a class="nav-link active" href="#">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Applications</a>
-                </li>
-            </ul>
-
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
                     <a class="nav-link" href="#">Approval</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">fff</a>
                 </li>
             </ul>
         </nav>
@@ -69,7 +61,11 @@ Created by IntelliJ IDEA.
                 <table class="table table-bordered col-md-8">
                     <h3>Holiday</h3>
                     <thead>
-                        <tr><th>TotalDays</th><th>cntUsed</th><th>remain</th></tr>
+                    <tr>
+                        <th>TotalDays</th>
+                        <th>cntUsed</th>
+                        <th>remain</th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
@@ -78,7 +74,8 @@ Created by IntelliJ IDEA.
                         <td><c:out value="${holiCnt.remain}"></c:out></td>
                     </tr>
                     </tbody>
-                </table><hr>
+                </table>
+                <hr>
             </div>
 
             <div class="container-fluid">
@@ -87,8 +84,10 @@ Created by IntelliJ IDEA.
                     <div class='col-md-2 col-xs-4'>
                         <div class="form-group">
                             <div class="input-group date" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-target="#datetimepicker1">
-                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker1"
+                                       data-target="#datetimepicker1">
+                                <div class="input-group-append" data-target="#datetimepicker1"
+                                     data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
@@ -97,8 +96,10 @@ Created by IntelliJ IDEA.
                     <div class='col-md-2 col-xs-4'>
                         <div class="form-group">
                             <div class="input-group date" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker2" data-target="#datetimepicker2">
-                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker2"
+                                       data-target="#datetimepicker2">
+                                <div class="input-group-append" data-target="#datetimepicker2"
+                                     data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
@@ -120,7 +121,17 @@ Created by IntelliJ IDEA.
                 <hr>
                 <h3>holiday list</h3>
                 <table class="table table-striped" id="originTable">
-                    <thead><tr><th>no.</th><th>휴가유형</th><th>시작일</th><th>종료일</th><th>기간</th><th>상태</th><th></th></tr></thead>
+                    <thead>
+                    <tr>
+                        <th>no.</th>
+                        <th>휴가유형</th>
+                        <th>시작일</th>
+                        <th>종료일</th>
+                        <th>기간</th>
+                        <th>상태</th>
+                        <th></th>
+                    </tr>
+                    </thead>
                     <tbody></tbody>
                 </table>
                 <hr>
@@ -133,88 +144,86 @@ Created by IntelliJ IDEA.
 <script>
     var list = "";
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         list = ${holiList};
         loadListTable();
     });
 
-    function cancelButton(holiNo){
+    function cancelButton(holiNo) {
 
         var holidayState = list[holiNo].state;
         var holidayEmpNo = list[holiNo].empNo;
         var holidayNo = list[holiNo].holiNo;
 
-        if(holidayState === '사용') {
+        if (holidayState === '사용') {
             alert("이미 사용한 휴가는 취소할 수 없음");
-        }
-        else if(holidayState === '반려'){
+        } else if (holidayState === '반려') {
             alert("반려 처리된 휴가는 취소할 수 없음");
-        }
-        else{
-            if(confirm("취소하시겠습니까?")==true){
+        } else {
+            if (confirm("취소하시겠습니까?") == true) {
 
-                console.log(holidayState +"/"+ holidayEmpNo +"/"+ holidayNo);
+                console.log(holidayState + "/" + holidayEmpNo + "/" + holidayNo);
 
                 $.ajax({
-                    url : "http://localhost:8080/cancelHoliday",
-                    type : "DELETE",
+                    url: "http://localhost:8080/cancelHoliday",
+                    type: "DELETE",
                     contentType: "application/json; charset=utf-8",
                     dataType: "text",
-                    data : JSON.stringify(
+                    data: JSON.stringify(
                         {
-                            "empNo" : holidayEmpNo,
-                            "holiNo" : holidayNo
+                            "empNo": holidayEmpNo,
+                            "holiNo": holidayNo
                         }
                     ),
-                    success: function (response){
+                    success: function (response) {
 
-                        console.log("response type : "+typeof response);
+                        console.log("response type : " + typeof response);
 
                         var result = JSON.parse(response);
                         console.log("result : " + result);
                         console.log("result.code : " + result.code);
                         console.log("Type of result.code : " + typeof result.code);
 
-                        if(result.code === "0000"){
+                        if (result.code === "0000") {
                             alert("삭제되었습니다.");
                             location.reload();
                         }
                     },
-                    error:  function () {
+                    error: function () {
                         console.log(Error);
                     }
                 });
-            }else {
-                return ;
+            } else {
+                return;
             }
 
         }
     }
 
-    function loadListTable(){
+    function loadListTable() {
         console.log(list);
 
         var html = "";
 
-        for(var i=0; i < list.length; i++){
+        for (var i = 0; i < list.length; i++) {
             var holi = list[i];
 
             html += '<tr>';
 
-            html += '<td>' + (i+1) +'</td>';
+            html += '<td>' + (i + 1) + '</td>';
             html += '<td>' + holi.holiType + '</td>';
             html += '<td>' + holi.startDate + '</td>';
             html += '<td>' + holi.endDate + '</td>';
             html += '<td>' + holi.duration + '</td>';
             html += '<td>' + holi.state + '</td>';
-            html += '<td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton(' + i +')"></td>';
+            html += '<td><input type="button" class="btn btn-danger btn-sm" value="취소" onclick="cancelButton(' + i + ')"></td>';
 
             html += '</tr>';
         }
         $('#originTable > tbody').append(html);
     }
 
-    function applyButton(){
+    function applyButton() {
         var holidayEmpNo = '8';
         var dateStart = Date.parse($('#datetimepicker1').val());
         var dateEnd = Date.parse($('#datetimepicker2').val());
@@ -223,52 +232,49 @@ Created by IntelliJ IDEA.
 
         console.log(typeof dateStart);
 
-        if ((dateStart !== dateEnd) && (dayOffType === half)){
+        if ((dateStart !== dateEnd) && (dayOffType === half)) {
             alert('날짜를 다시 확인해주세요.');
-        }
-        else if((dateStart === dateEnd) && (dayOffType === half)){
-            if(confirm("반차를 신청하시겠습니까?")==true){
+        } else if ((dateStart === dateEnd) && (dayOffType === half)) {
+            if (confirm("반차를 신청하시겠습니까?") == true) {
                 callApply();
-            }
-            else return;
-        }
-        else {
-            if(confirm("휴가를 신청하시겠습니까?")==true){
+            } else return;
+        } else {
+            if (confirm("휴가를 신청하시겠습니까?") == true) {
                 callApply();
             }
         }
 
         // 휴가 신청 api 호출
-        function callApply(){
+        function callApply() {
             $.ajax({
-                url : "http://localhost:8080/applyHoliday",
-                type : "POST",
+                url: "http://localhost:8080/applyHoliday",
+                type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: "text",
-                data : JSON.stringify(
+                data: JSON.stringify(
                     {
-                        "startDate" : dateStart,
-                        "endDate" : dateEnd,
-                        "holiType" : dayOffType,
-                        "empNo" : holidayEmpNo
+                        "startDate": dateStart,
+                        "endDate": dateEnd,
+                        "holiType": dayOffType,
+                        "empNo": holidayEmpNo
                     }
                 ),
-                success: function (response){
+                success: function (response) {
 
-                    console.log("response type : "+typeof response);
+                    console.log("response type : " + typeof response);
 
                     var result = JSON.parse(response);
                     console.log("result : " + result);
                     console.log("result.code : " + result.code);
                     console.log("Type of result.code : " + typeof result.code);
 
-                    if(result.code === "0000"){
+                    if (result.code === "0000") {
                         console.log("refresh");
                         location.reload();
                     }
                 },
-                error:  function () {
-                    console.log("오류 : "+ Error);
+                error: function () {
+                    console.log("오류 : " + Error);
                 }
             });
         }
@@ -300,14 +306,5 @@ Created by IntelliJ IDEA.
 
     });
 </script>
-
-
-<!-- Bootstrap core JavaScript================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<%--<script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"--%>
-<%--        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"--%>
-<%--        crossorigin="anonymous"></script>--%>
-<%--<script src="js/bootstrap.min.js"></script>--%>
 </body>
 </html>
