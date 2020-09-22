@@ -47,7 +47,7 @@ public class HolidayController {
         return "index.jsp";
     }
 
-    // 팀장의 결재 화면
+    // 휴가 결재 화면
     @GetMapping(value = "/approval")
     public String Approval(Model model, @RequestParam String team, @RequestParam String empNo) {
         logger.debug("empNo : "+ empNo);
@@ -55,24 +55,15 @@ public class HolidayController {
 
         ResponseModel result = holidayService.checkApproval(team, empNo);
         logger.debug("!!!"+result.toString());
-        model.addAttribute("approvalList", result.getData());
 
-        logger.debug(""+model);
+        //json으로 전환
+        Gson gson = new Gson();
+        String jsonApprovalList = gson.toJson(result.getData());
+        logger.debug("jsonApprovalList : " + jsonApprovalList);
+
+        model.addAttribute("approvalList", jsonApprovalList);
+        logger.debug("!!!!"+model);
         return "approval.jsp";
-    }
-
-    //휴가 신청 화면
-    @PostMapping(value = "/holidayApplyView")
-    @ResponseBody
-    public String ApplyHoliday(Model model, @RequestBody ApplyHoliDto applyHoliDto) {
-
-
-        ResponseModel result = holidayService.applyHoli(applyHoliDto);
-        logger.debug("!!!"+result.toString());
-        model.addAttribute("applyList", result.getData());
-
-        logger.debug(""+model);
-        return "application.jsp";
     }
 
 
