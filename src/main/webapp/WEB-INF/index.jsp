@@ -165,17 +165,22 @@ Created by IntelliJ IDEA.
                             }
                         ),
                         success: function (response){
-                            console.log(holidayState);
-                            console.log(holidayNo);
 
-                            if(response == 1){
+                            console.log("response type : "+typeof response);
+
+                            var result = JSON.parse(response);
+                            console.log("result : " + result);
+                            console.log("result.code : " + result.code);
+                            console.log("Type of result.code : " + typeof result.code);
+
+                            if(result.code === "0000"){
+                                console.log("refresh");
                                 removeListTable();
                                 reloadListTable();
                             }
                         },
                         error:  function () {
-                            console.log(holidayState);
-                            console.log(this.data);
+                            console.log(Error);
                         }
                     });
                 }else {
@@ -185,7 +190,9 @@ Created by IntelliJ IDEA.
         }
 
         function removeListTable(){
-            $('#originTbody').empty();
+            console.log("clear");
+            //$('#originTbody').empty();
+            $('#originTbody').html('');
         }
 
         function reloadListTable(){
@@ -245,8 +252,16 @@ Created by IntelliJ IDEA.
                         }
                     ),
                     success: function (response){
-                        console.log("success : "+holidayEmpNo);
-                        if(response == 1){
+
+                        console.log("response type : "+typeof response);
+
+                        var result = JSON.parse(response);
+                        console.log("result : " + result);
+                        console.log("result.code : " + result.code);
+                        console.log("Type of result.code : " + typeof result.code);
+
+                        if(result.code === "0000"){
+                            console.log("refresh");
                             removeListTable();
                             reloadListTable();
                         }
