@@ -101,7 +101,7 @@ public class HolidayController {
 
 
     // 휴가 신청 기능
-    @PostMapping(value = "/holiday")
+    @PostMapping(value = "/applyHoliday")
     @ResponseBody
     public ResponseModel ApplyHoli(@RequestBody ApplyHoliDto applyHoliDto) {
 

@@ -70,11 +70,7 @@ Created by IntelliJ IDEA.
                 <table class="table table-bordered">
                     <h3>Holiday</h3>
                     <thead>
-                    <tr>
-                        <th>TotalDays</th>
-                        <th>cntUsed</th>
-                        <th>remain</th>
-                    </tr>
+                        <tr><th>TotalDays</th><th>cntUsed</th><th>remain</th></tr>
                     </thead>
                     <tbody>
                     <tr>
@@ -85,34 +81,27 @@ Created by IntelliJ IDEA.
                     </tbody>
                 </table>
             </div>
+
             <div class="table-responsive col-8">
                 <hr>
                 <h3>holiday list</h3>
                 <table class="table table-striped" id="originTable">
                     <thead>
-                    <tr>
-                        <th>no.</th>
-                        <th>휴가유형</th>
-                        <th>시작일</th>
-                        <th>종료일</th>
-                        <th>기간</th>
-                        <th>상태</th>
-                        <th></th>
-                    </tr>
+                        <tr><th>no.</th><th>휴가유형</th><th>시작일</th><th>종료일</th><th>기간</th><th>상태</th><th></th></tr>
                     </thead>
                     <tbody id="originTbody">
-
                     </tbody>
                 </table>
                 <hr>
             </div>
+
             <div class="container-fluid">
                 <h3>application</h3>
                 <div class="row">
                     <div class='col-md-2 col-xs-4'>
                         <div class="form-group">
-                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1">
+                            <div class="input-group date" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-target="#datetimepicker1">
                                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -121,8 +110,8 @@ Created by IntelliJ IDEA.
                     </div>
                     <div class='col-md-2 col-xs-4'>
                         <div class="form-group">
-                            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2">
+                            <div class="input-group date" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker2" data-target="#datetimepicker2">
                                 <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -130,9 +119,9 @@ Created by IntelliJ IDEA.
                         </div>
                     </div>
                     <div class='col-md-2 col-xs-4'>
-                        <select class="form-control">
-                            <option>반차</option>
-                            <option>휴가</option>
+                        <select class="form-control" id="selectType">
+                            <option id="halfDayType">반차</option>
+                            <option id="allDayType">휴가</option>
                         </select>
                     </div>
                     <div class='col-sm-2'>
@@ -149,7 +138,6 @@ Created by IntelliJ IDEA.
         $(document).ready(function(){
             list = ${holiList};
             reloadListTable();
-
         });
 
         function cancelButton(holiNo){
@@ -158,10 +146,9 @@ Created by IntelliJ IDEA.
             var holidayEmpNo = list[holiNo].empNo;
             var holidayNo = list[holiNo].holiNo;
 
-            if(holidayState === '사용'){
+            if(holidayState === '사용') {
                 alert("이미 사용한 휴가는 취소할 수 없음");
             }
-
             else{
                 if(confirm("취소하시겠습니까?")==true){
                     console.log(holidayState +"/"+ holidayEmpNo +"/"+ holidayNo);
@@ -217,6 +204,60 @@ Created by IntelliJ IDEA.
             }
             $('#originTbody').html(html);
         }
+
+        function applyButton(){
+            var holidayEmpNo = '8';
+            var dateStart = Date.parse($('#datetimepicker1').val());
+            var dateEnd = Date.parse($('#datetimepicker2').val());
+            var dayOffType = $('#selectType').val();
+            var half = $('#halfDayType').val();
+
+            console.log(typeof dateStart);
+
+            // 반차 선택 오류
+            if ((dateStart !== dateEnd) && (dayOffType === half)){
+                alert('날짜를 다시 확인해주세요.');
+            }
+            else if((dateStart === dateEnd) && (dayOffType === half)){
+                if(confirm("반차를 신청하시겠습니까?")==true){
+                    callApply();
+                }
+                else return;
+            }
+            else {
+                if(confirm("휴가를 신청하시겠습니까?")==true){
+                    callApply();
+                }
+            }
+
+            function callApply(){
+                $.ajax({
+                    url : "http://localhost:8080/applyHoliday",
+                    type : "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    data : JSON.stringify(
+                        {
+                            "startDate" : dateStart,
+                            "endDate" : dateEnd,
+                            "holiType" : dayOffType,
+                            "empNo" : holidayEmpNo
+                        }
+                    ),
+                    success: function (response){
+                        console.log("success : "+holidayEmpNo);
+                        if(response == 1){
+                            removeListTable();
+                            reloadListTable();
+                        }
+                    },
+                    error:  function () {
+                        console.log("오류 : "+ Error);
+                    }
+                });
+            }
+        }
+
     </script>
 </div>
 
